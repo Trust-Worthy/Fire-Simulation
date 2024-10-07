@@ -20,17 +20,14 @@ static void usage() {
     fprintf( stderr, "\nAn argument pair of \"-p 5\" is same as \"-p5\"\n" ); 
 }
 
+
+
 /// This demonstrates the use of the getopt() function.
 /// main : [-H] [-p num] [-s pos_num] [-- ... ] -> int
-/// To terminate option flag processing enter the "--" as an argument.
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
-///
-/// @see man -s 3 getopt
-/// @see man getopt
-///
 
-int main( int argc, char * argv[] ) {
+int parse_args( int argc, char * argv[] ) {
 
     int opt;
     int tmpsize = 0;
@@ -50,7 +47,7 @@ int main( int argc, char * argv[] ) {
     // The -s and -p options each expect an argument.
     // // // // // // // // // // // // // // // // // // // // // // // // 
 
-    while ( (opt = getopt( argc, argv, "Hs:p:") ) != -1 ) {
+    while ( (opt = getopt( argc, argv, "Hs:p:") ) != -1 ) { // change Hs:p: I have way more possible arguments than this    
 
         switch ( opt ) {
         case 'H':
