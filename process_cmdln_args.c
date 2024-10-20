@@ -82,7 +82,7 @@ int parse_args( int argc, char * argv[] ) {
                 cmds_struct.PN = (size_t)tmpsize; // assigning to struct
                 print_header(cmds_struct.PN); 
             } else {
-                fprintf( stderr, "The -p got no value; should be an error.\n" );
+                fprintf( stderr, "(-pN) number of states to print must be an integer in [0...10000].\n" );
             }
             break;
             
