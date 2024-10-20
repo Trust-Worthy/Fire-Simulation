@@ -1,3 +1,10 @@
+///
+///
+/// @file process_cmdln_args
+/// @author Jonathan Bateman jmb7342@rit.edu
+/// This header file defines funtions for process_cmdln_args.c
+
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -24,7 +31,7 @@ typedef enum {
 
 /// function: -pN is entered --> prints the program header for Wildfire Simulation
 /// @param states is the number of times that simulation will run
-int print_header(int states);
+void  print_header(int states);
 
 
 /// general help message is printed to stdout when -H option is a cmd ln arg
@@ -32,8 +39,5 @@ int print_header(int states);
 /// general help message is also printed to stdout
 void print_help_message();
 
-/// funtion: converts cmd ln arg from string to size_t and assign it to the enum 
-/// @param optarg: is a pointer to a string--more specifically the second part of a cmd lin arg. ex: -p5 --> 5 is optarg.
-size_t parse_args(*optarg);
     
 #endif //PROCESS_CMDLN_ARGS_H 

@@ -32,9 +32,15 @@ void print_help_message(){
 }
 
 
-/// This demonstrates the use of the getopt() function.
-/// main : [-H] [-p num] [-s pos_num] [-- ... ] -> int
-/// To terminate option flag processing enter the "--" as an argument.
+/// @brief Parses input from cmd line. 
+/// Converts a string to an integer, checks to make sure that cmd line args align with program specifications
+
+int parse_args(*optarg){
+
+    
+
+
+
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
