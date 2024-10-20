@@ -1,3 +1,11 @@
+///
+///
+/// @file process_cmdln_args.c
+/// @author Jonathan Bateman jmb7342@rit.edu
+/// This program processes the cmd line arguments and initializes the state of the wildfire simulation
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>  // processing for "-fN" command line args
@@ -20,10 +28,39 @@ static void usage() {
     fprintf( stderr, "\nAn argument pair of \"-p 5\" is same as \"-p5\"\n" ); 
 }
 
+/// @param int states is the number of times the simulation will print before quitting. There is no default value.
+int print_header(int states){
+     printf(
+       "===========================\n"
+       "======== Wildfire =========\n"
+       "===========================\n"
+       "=== Print %d Time Steps ===\n"
+       "===========================", states);
+        
+        return EXIT_SUCCESS;
+}
+
+int print_help_message(){
+    printf("$ wildfire -H\n"
+    "usage: wildfire [options]\n"
+    "By default, the simulation runs in overlay display mode.\n"
+    "The -pN option makes the simulation run in print mode for up to N states.\n"
+    "\n"
+    "\n"
+    "Simulation Configuration Options:\n"
+    "-H  # View simulation options and quit.\n"
+    "-bN # proportion of trees that are already burning. 0 < N < 101.\n"
+    " -cN # probability that a tree will catch fire. 0 < N < 101.\n"
+    " -dN # density: the proportion of trees in the grid. 0 < N < 101.\n"
+    "-nN # proportion of neighbors that influence a tree catching fire. -1 < N < 101.\n"
+    "-pN # number of states to print before quitting. -1 < N < ...\n"
+    "-sN # simulation grid size. 4 < N < 41.\n")
+}
 
 
 /// This demonstrates the use of the getopt() function.
 /// main : [-H] [-p num] [-s pos_num] [-- ... ] -> int
+/// To terminate option flag processing enter the "--" as an argument.
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
@@ -46,12 +83,14 @@ int parse_args( int argc, char * argv[] ) {
     // The -H option (case sensitive) has no argument.
     // The -s and -p options each expect an argument.
     // // // // // // // // // // // // // // // // // // // // // // // // 
-
-    while ( (opt = getopt( argc, argv, "Hs:p:") ) != -1 ) { // change Hs:p: I have way more possible arguments than this    
+    
+    const char *arg_string = "Hb:c:d:n:p:s";
+    while ( (opt = getopt( argc, argv, arg_string) ) != -1 ) { // getopt() returns -1 if there are not more options to process 
 
         switch ( opt ) {
         case 'H':
             fprintf( stderr, "\nPlease read the usage message above.\n" );
+            return EXIT_FAILURE;
             break;
 
         case 'p':
