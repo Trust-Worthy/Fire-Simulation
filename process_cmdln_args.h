@@ -12,9 +12,13 @@
 // -pN # number of states to print before quitting. -1 < N < ...
 // -sN # simulation grid size. 4 < N < 41.
 
-typedef struct ARGS {
-    float BN, CN, DN, NN; // all of these values are proportions
-    size_t PN,SN; // these will always be positive integers
+typedef enum {
+     BN = 0,
+     CN = 0,
+     DN = 0,
+     NN = 0,
+     PN = 0, 
+     SN = 0 // all of these values are taken as integers from the user. 
 } CMD_LN_ARGS;
 
 
@@ -23,11 +27,13 @@ typedef struct ARGS {
 int print_header(int states);
 
 
-// general help message is printed to stdout when -H option is a cmd ln arg
-// general help message is also printed to stdout
+/// general help message is printed to stdout when -H option is a cmd ln arg
+/// general help message is printed when there is an unknown flag
+/// general help message is also printed to stdout
 void print_help_message();
 
-// 
-
+/// funtion: converts cmd ln arg from string to size_t and assign it to the enum 
+/// @param optarg: is a pointer to a string--more specifically the second part of a cmd lin arg. ex: -p5 --> 5 is optarg.
+size_t parse_args(*optarg);
     
 #endif //PROCESS_CMDLN_ARGS_H 

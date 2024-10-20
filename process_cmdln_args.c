@@ -11,34 +11,7 @@
 #include <getopt.h>  // processing for "-fN" command line args
 #include "process_cmdln_args.h" // processing specific flags once they are parsed
 
-#define DEFAULT_SIZE   10            ///< used if no override on command line
-
-
-static size_t the_size = DEFAULT_SIZE; ///< a program setting.
-
-static size_t the_count = 0;         ///< another program setting. default is 0.
-
-/// usage function gives instructions.
-
-static void usage() {
-    fprintf( stderr, "\nusage: use_getopt [-H -pNUM -s pos_num]\n" );
-    fprintf( stderr, "\t-H is for getting help\n" ); 
-    fprintf( stderr, "\t-pN overrides the default count\n" ); 
-    fprintf( stderr, "\t-sN overrides the default size\n" ); 
-    fprintf( stderr, "\nAn argument pair of \"-p 5\" is same as \"-p5\"\n" ); 
-}
-
-/// @param int states is the number of times the simulation will print before quitting. There is no default value.
-int print_header(int states){
-     printf(
-       "===========================\n"
-       "======== Wildfire =========\n"
-       "===========================\n"
-       "=== Print %d Time Steps ===\n"
-       "===========================", states);
-        
-        return EXIT_SUCCESS;
-}
+#define BASE_10 10 // will be used for converting string to integers in base 10
 
 // -H option is selected by user
 void print_help_message(){
@@ -77,12 +50,17 @@ int parse_args( int argc, char * argv[] ) {
 
         switch ( opt ) {
         case 'p':
-            tmpsize = (int)strtol( optarg, NULL, 10 ); // tmp var is used to ensure that the value is not negative
+            tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 ) {
                 cmds_struct.PN = (size_t)tmpsize; // assigning to struct
-                print_header(cmds_struct.PN); 
+                print_header(cmds_struct.PN);
+                // do some other funtions to make the program run
+
+                return EXIT_SUCCESS;
+
             } else {
                 fprintf( stderr, "(-pN) number of states to print must be an integer in [0...10000].\n" );
+                return EXIT_FAILURE; // immediately terminate program
             }
             break;
             
@@ -92,39 +70,55 @@ int parse_args( int argc, char * argv[] ) {
             break;
 
         case 's':
-            tmpsize = (int)strtol( optarg, NULL, 10 );
-            if ( tmpsize > 0 ) {
-                the_size = (size_t)tmpsize;
-                printf( "Option %c got the value %d\n", opt, tmpsize );
+            tmpsize = (int)strtol( optarg, NULL, BASE_10);
+            if ( tmpsize >= 5 || tmpsize <= 40) { // min size of grid is 5x5 and max size is 40x40
+                cmds_struct.SN  = (size_t)tmpsize;
                 break;
             } else {
-                fprintf( stderr, "The -s option requires positive value\n" );
+                fprintf( stderr, "(-sN)  ) simulation grid size must be an integer in [5...40].\n" );
+                return EXIT_FAILURE;
+            } 
+            break;
+        case 'b': 
+            tmpsize = (int)strtol(optarg,NULL,BASE_10);
+            if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
+                cmds_struct.BN = (size_t)tmpsize;
+            }else { 
+                fprintf("(-bN) proportion already burning must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
             }
-
+            break;
+        case 'c':
+            tmpsize = (int)strtol(optarg,NULL,BASE_10);
+            if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
+                cmds_struct.CN = (size_t)tmpsize;
+            }else { 
+                fprintf("(-cN) probability a tree will catch fire must be an integer in [1...100].\n")
+                return EXIT_FAILURE;
+            }
+            break;
+        case 'd': 
+            tmpsize = (int)strtol(optarg,NULL,BASE_10);
+            if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
+                cmds_struct.DN = (size_t)tmpsize;
+            }else { 
+                fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
+                return EXIT_FAILURE;
+            }
+            break;
         default:
             // some unknown, possibly unacceptable option flag
-            fprintf( stderr, "Bad option causes failure; ignored.\n" );
+            fprintf( stderr, "Unknown flag: please try a define flag as listed in the Configuration Options\n" );
+            print_help_message();
             break;
         }
     }
 
-    printf( "\nsettings: " );
-    printf( "the_size == %zu;\n", the_size );
-    printf( "the_count == %zu;\n", the_count );
-    printf( "\n" );
+    // use cmd ln struct to initialize the simulation
 
-    // // // // // // // // // // // // // // // // // // // // // // // // 
-    // this example shows the remaining command line arguments.
-    // At this point, optind should equal index of next argument.
-    // if there are additional arguments, optind is index of the first one.
-    // // // // // // // // // // // // // // // // // // // // // // // // 
 
-    printf( "\n\tREMAINING COMMAND LINE ARGUMENTS: (index: argv[index])\n" );
-    for ( int j = optind; j < argc; ++j ) {
-        printf( "\t(%d: %s)\n", j, argv[j] );
-    }
-    printf( "\n" );
+
+
 
     return EXIT_SUCCESS;
 }
