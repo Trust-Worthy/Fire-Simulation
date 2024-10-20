@@ -40,7 +40,8 @@ int print_header(int states){
         return EXIT_SUCCESS;
 }
 
-int print_help_message(){
+// -H option is selected by user
+void print_help_message(){
     printf("$ wildfire -H\n"
     "usage: wildfire [options]\n"
     "By default, the simulation runs in overlay display mode.\n"
@@ -66,42 +67,28 @@ int print_help_message(){
 
 int parse_args( int argc, char * argv[] ) {
 
-    int opt;
-    int tmpsize = 0;
-    
-    fprintf( stderr, "command line:\t >>> " );
-    for ( int j = 0; j < argc; ++j ) {
-        fprintf( stderr, "%s ", argv[j] );
-    }
-    fprintf( stderr, "\n" );
+    int opt; //the option returned from getopt()
+    int tmpsize = 0; // a temporary variable for type safety purposes
+    CMD_LN_ARGS cmds_struct = {0}; // struct that holds all cmd ln arg vals
 
-    usage();  // print usage to guide the demonstration
+    const char *arg_string = "Hb:c:d:n:p:s:"; /// cmd line option requirements 
 
-    // // // // // // // // // // // // // // // // // // // // // // // // 
-    // string "Hs:p:" means that, if -H -s or -p are on the command line,
-    // then getopt code will process those arguments, ignoring others.
-    // The -H option (case sensitive) has no argument.
-    // The -s and -p options each expect an argument.
-    // // // // // // // // // // // // // // // // // // // // // // // // 
-    
-    const char *arg_string = "Hb:c:d:n:p:s";
     while ( (opt = getopt( argc, argv, arg_string) ) != -1 ) { // getopt() returns -1 if there are not more options to process 
 
         switch ( opt ) {
-        case 'H':
-            fprintf( stderr, "\nPlease read the usage message above.\n" );
-            return EXIT_FAILURE;
-            break;
-
         case 'p':
-            tmpsize = (int)strtol( optarg, NULL, 10 );
+            tmpsize = (int)strtol( optarg, NULL, 10 ); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 ) {
-                the_count = (size_t)tmpsize;
-                printf( "Option %c got the value %d\n", opt, tmpsize );
-                print_wildfire_header(tmpsize);
+                cmds_struct.PN = (size_t)tmpsize; // assigning to struct
+                print_header(cmds_struct.PN); 
             } else {
                 fprintf( stderr, "The -p got no value; should be an error.\n" );
             }
+            break;
+            
+        case 'H':
+            print_help_message(); 
+            return EXIT_FAILURE;
             break;
 
         case 's':
