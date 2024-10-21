@@ -32,10 +32,6 @@ void print_help_message(){
 }
 
 
-/// @brief Parses input from cmd line. 
-/// Converts a string to an integer, checks to make sure that cmd line args align with program specifications
-
-int parse_args(*optarg){
 
     
 
@@ -58,7 +54,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'p':
             tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 ) {
-                cmds_struct.PN = (size_t)tmpsize; // assigning to struct
+                cmds_struct.PN = (int)tmpsize; // assigning to struct
                 print_header(cmds_struct.PN);
                 // do some other funtions to make the program run
 
@@ -78,7 +74,7 @@ int parse_args( int argc, char * argv[] ) {
         case 's':
             tmpsize = (int)strtol( optarg, NULL, BASE_10);
             if ( tmpsize >= 5 || tmpsize <= 40) { // min size of grid is 5x5 and max size is 40x40
-                cmds_struct.SN  = (size_t)tmpsize;
+                cmds_struct.SN  = (int)tmpsize;
                 break;
             } else {
                 fprintf( stderr, "(-sN)  ) simulation grid size must be an integer in [5...40].\n" );
@@ -88,7 +84,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'b': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.BN = (size_t)tmpsize;
+                cmds_struct.BN = (int)tmpsize;
             }else { 
                 fprintf("(-bN) proportion already burning must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
@@ -97,7 +93,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'c':
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.CN = (size_t)tmpsize;
+                cmds_struct.CN = (int)tmpsize;
             }else { 
                 fprintf("(-cN) probability a tree will catch fire must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
@@ -106,9 +102,18 @@ int parse_args( int argc, char * argv[] ) {
         case 'd': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.DN = (size_t)tmpsize;
+                cmds_struct.DN = (int)tmpsize;
             }else { 
                 fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
+                return EXIT_FAILURE;
+            }
+            break;
+        case 'n':
+            tmpsize = (int)strtol(optarg,NULL,BASE_10);
+            if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
+                cmds_struct.NN = (int)tmpsize;
+            }else { 
+                fprintf("(-nN) %%neighbors influence catching fire must be an integer in[1...100].\n")
                 return EXIT_FAILURE;
             }
             break;
@@ -122,10 +127,7 @@ int parse_args( int argc, char * argv[] ) {
 
     // use cmd ln struct to initialize the simulation
 
-
-
-
-
+    
     return EXIT_SUCCESS;
 }
 

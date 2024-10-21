@@ -19,15 +19,18 @@
 // -pN # number of states to print before quitting. -1 < N < ...
 // -sN # simulation grid size. 4 < N < 41.
 
-typedef struct ARGS{
+typedef struct {
      int BN;
      int CN;// all of these values are taken as integers from the user.
      int DN;
      int NN;
      int PN;
      int PN;
-
 } CMD_LN_ARGS;
+
+/// function: print_struct prints out all the values of the struct
+/// @param args --> this a pointer to a struct
+void print_struct(CMD_LN_ARGS *args);
 
 
 /// function: -pN is entered --> prints the program header for Wildfire Simulation
