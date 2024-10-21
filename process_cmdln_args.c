@@ -32,7 +32,18 @@ void print_help_message(){
 }
 
 
-
+///
+/// @param args is a pointer to a struct
+void print_struct(CMD_LN_ARGS *args){
+    
+    printf("Values of the struct are below\n");
+    printf("-bN: %d\n", args->BN);
+    printf("-cN: %d\n", args->CN);
+    printf("-dN: %d\n", args->DN);
+    printf("-nN: %d\n", args->NN);
+    printf("-pN: %d\n", args->PN);
+    printf("-sN: %d\n", args->SN);
+}
     
 
 
@@ -126,7 +137,10 @@ int parse_args( int argc, char * argv[] ) {
     }
 
     // use cmd ln struct to initialize the simulation
+    
 
+    //print out struct for testing purposes
+    print_sturct(&cmds_struct);
     
     return EXIT_SUCCESS;
 }
