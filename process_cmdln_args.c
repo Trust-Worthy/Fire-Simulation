@@ -108,7 +108,16 @@ int parse_args( int argc, char * argv[] ) {
                 return EXIT_FAILURE;
             }
             break;
-        case '
+        case 'n':
+            tmpsize = (int)strtol(optarg,NULL,BASE_10);
+            if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
+                cmds_struct.NN = (size_t)tmpsize;
+            }else { 
+                fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
+                return EXIT_FAILURE;
+            }
+            break;
+            
         default:
             // some unknown, possibly unacceptable option flag
             fprintf( stderr, "Unknown flag: please try a define flag as listed in the Configuration Options\n" );
@@ -119,14 +128,11 @@ int parse_args( int argc, char * argv[] ) {
 
     // use cmd ln struct to initialize the simulation
 
-<<<<<<< HEAD
 
 
 
 
-=======
     
->>>>>>> parent of f4e066f... Finished implementing the helper function to print out the struct. Testing time now.
     return EXIT_SUCCESS;
 }
 
