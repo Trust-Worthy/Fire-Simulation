@@ -13,7 +13,7 @@
 
 ///
 /// @brief an enum to keep track of the state of a cell
-typedef enum CellState {
+typedef enum {
     EMPTY,
     TREE,
     BURNING,
