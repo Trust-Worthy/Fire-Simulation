@@ -81,8 +81,6 @@ int main( int argc, char * argv[] ) {
                 print_header(cmds_struct.PN);
                 // do some other funtions to make the program run
 
-                return EXIT_SUCCESS;
-
             } else {
                 fprintf( stderr, "(-pN) number of states to print must be an integer in [0...10000].\n" );
                 print_help_message();
