@@ -56,10 +56,6 @@ void print_struct(CMD_LN_ARGS *args){
 
 }
 
-    
-
-
-
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
