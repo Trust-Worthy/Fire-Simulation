@@ -17,6 +17,7 @@ static float BURN = 23.0;
 ///
 ///
 /// @note the Cell being passed in has already been initialized
+/*
 void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimension][dimension]){
     if (source_cell != NULL){
         //acessing the EightWay struct field of the Cell
@@ -28,7 +29,7 @@ void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimension][dimension
 
 }
 
-
+*/
 
 
 ///
