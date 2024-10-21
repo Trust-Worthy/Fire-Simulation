@@ -41,19 +41,25 @@ typedef struct EightWay{
      Cell w_cell; // cell that's directly to the left: (row, col - 1)
 }EightWay;
 
-/// @param dimensions the dimensions of the forest
+/// @brief creates a variable
+/// @param dimensions are the dimensions of the forest
+///
+/// @note create_forest is only called once every time the program runs
+/// 
 void create_forest(int dimensions);
 
-/// @brief this function fills a 2d array with either a space (non-tree), Y  (living tree)
-/// * (burning tree) based on the ENUM! The char values will be changed to chars when printed to terminal
+/// @brief this function fills a 2d array previously declared  with a value from the CellState enum. 
+/// The ENUM values will be changed to their char representation  when printed to terminal
 ///
 /// @param density the proportion of the trees in the grid. This will depend on the size of the grid
-/// @param burning_trees the proportion of trees that are already burning at the beginning of the simulation
-/// 
+/// @param burning_trees the proportion of trees that are already burning at the beginnng of the simulation
+/// @param forest is pointer to an array of chars where the cols are the dimensions
+///
 /// @note density determines the total number of trees, burning_trees determines the number of burning trees
 /// density - burning is the number of live trees
 /// lastly, the # of cells in the forest (dimensions (row times col)) - density is the number of non-trees
-void fill_forest(float density, float burning_trees);
+/// @note fill_forest only has to be called once every time the program runs
+void fill_forest(int dimensions, float density, float burning_trees, char (*forest)[dimensions]);
 
 
 /// @param forest is a pointer to a pointer to a 2d array
@@ -61,10 +67,13 @@ char **print_forest(char **forest);
 
 
 /// @brief update forest updates the forest based on the current cycle configuration
+/// @param dimensions is the dimensions of the grid as specified by the user 
 /// @param forest is a pointer to a pointer to a 2d array
+/// 
+///
 /// @note the update_forest function will call the spread function to determine what cells need to be updated on each cycle
 ///
-void update_forest(char **forest);
+void update_forest(int dimensions, char **forest);
 
 /// @brief  The spread function uses eight-way connectivity of neighbors to decide upon a state change for a single tree cell.
 /// The spread function first must check that the proportion of neighbors 
