@@ -154,7 +154,8 @@ int main( int argc, char * argv[] ) {
     }
 
     // use cmd ln struct to initialize the simulation
-
+    
+    // by default the simulation runs in Overlay mode
 
     print_struct(&cmds_struct);
 
