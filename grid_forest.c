@@ -22,16 +22,28 @@ void fill_forest(int dimensions, float density, float burning_trees,char forest[
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions **2)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * density)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
-    
+    int live_trees = num_trees - num_burn_trees; 
+    //generate random (x,y) pairs to place the live and burning trees
+    int used[dimensions][dimensions] = {0}
+    int temp_live = live_trees;
+    for(int i = 0; i < num_trees; i++){
+        int x,y;
+        
+        do {
+            x = rand() % dimensions; // rand x coor
+            y = rand() % dimensions; // rand y coor
+        } while(used[x][y]); // repeat until unique pair is found
 
-    // implementation of fisher-yates shuffle
-    
+        // mark as used 
+        used[x][y] = 1;
 
-
-    for(int i = 0; i <dimensions; i++){
-        for(int j =0; j<dimensions; j++){
-           forest[i][j] = 'A';
-        }
+        //place live_trees in forest until live trees run out  
+        if(temp_live > 0){
+            CellState state = TREE;
+            forest[x][y] = TREE;   
+            --templive;
+        }else{
+            forest[x][y] = CellState BURNING;
     }
 }
 
@@ -50,10 +62,10 @@ int main(int argc, char *argv[]){
     
     float burn_trees = BURN;
     int dimension = atoi(argv[1]); 
-    char forest[dimension][dimension];
+    CellState forest[dimension][dimension];
     for(int i = 0; i <dimension; i++){
         for(int j = 0; j <dimension; j++){
-            forest[i][j] = ' '; 
+            forest[i][j] = EMPTY; 
         }
     }
 
