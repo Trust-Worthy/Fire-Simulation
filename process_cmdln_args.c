@@ -130,7 +130,7 @@ int main( int argc, char * argv[] ) {
             if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.NN = (size_t)tmpsize;
             }else { 
-                fprintf(stderr, "(-nN) density of trees in the grid must be an integer in [1...100].\n")
+                fprintf(stderr, "(-nN) density of trees in the grid must be an integer in [1...100].\n");
                 return EXIT_FAILURE;
             }
             break;
