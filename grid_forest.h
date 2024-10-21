@@ -23,6 +23,8 @@ typedef enum {
     BURNED
 } CellState;
 
+typedef struct EightWay EightWay; // forward declaration
+
 ///
 /// @brief this struct defines each individual cells' position in the context of the entire grid
 typedef struct CellPoint{
@@ -50,7 +52,7 @@ typedef struct EightWay{
 /// @brief this function fills in all the coordinates values for the neighbors of an individual cell
 ///
 /// @param neighbors is a pointer to an EightWay struct
-void add_cell_neighbors(Cell *forest_cell);
+void add_cell_neighbors(Cell *cell_forest);
 
 
 
@@ -66,11 +68,11 @@ void add_cell_neighbors(Cell *forest_cell);
 /// density - burning is the number of live trees
 /// lastly, the # of cells in the forest (dimensions (row times col)) - density is the number of non-trees
 /// @note fill_forest only has to be called once every time the program runs
-void fill_forest(int dimensions, float density, float burning_trees, CellState forest[dimensions][dimensions]);
+void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions]);
 
 /// @brief printing out a 2d array that represents the forest
 /// @param forest is a pointer to a pointer to a 2d array
-void print_forest(int dimensions, CellState forest[dimensions][dimensions]);
+void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 
 
 /// @brief update forest updates the forest based on the current cycle configuration
@@ -80,7 +82,7 @@ void print_forest(int dimensions, CellState forest[dimensions][dimensions]);
 ///
 /// @note the update_forest function will call the spread function to determine what cells need to be updated on each cycle
 ///
-void update_forest(int dimensions, CellState forest[dimensions][dimensions]);
+void update_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 
 /// @brief  The spread function uses eight-way connectivity of neighbors to decide upon a state change for a single tree cell.
 /// The spread function first must check that the proportion of neighbors 
@@ -89,7 +91,7 @@ void update_forest(int dimensions, CellState forest[dimensions][dimensions]);
 /// @param neighbor_proportion is the -nN cmd line argument that determines what proportion of neighbors must be burning for 
 /// the current cell to catch fire.
 /// @param forest_cell is an individual cell. The cell is either empty, live tree, burning tree, or burnt tree
-void spread_function(int row, int col, float neighbor_proportion, CellState  specific_forest_cell[row][col]);
+void spread_function(int row, int col, float neighbor_proportion, Cell specific_forest_cell[row][col]);
 
 
 #endif

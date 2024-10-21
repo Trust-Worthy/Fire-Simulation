@@ -35,23 +35,28 @@ void add_cell_neighbors(Cell *source_cell){
 /// @param density --> the percentage of cells of the forest that will be filled with trees
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
-void fill_forest(int dimensions, float density, float burning_trees, CellState  forest[dimensions][dimensions]){
+void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions]){
    
     // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
     // fill every item of 2d array with a new Cell struct. Set all fields of that struct to zero or NULL;
     for(int i = 0; i < dimensions; i++){
         for(int j = 0; j < dimensions; j++){
-            forest[i][j]->x_position = i; // x_position
-            forest[i][j]->y_position = j; // y_position
-            forest[i][j]->current_state = EMPTY; // enum CellState is EMPTY for time being
-            forest[i][j]->next_state = EMPTY; // next state is EMPTY until the update forest function is called
+            cell_forest[i][j]->x_position = i; // x_position
+            cell_forest[i][j]->y_position = j; // y_position
+            cell_forest[i][j]->current_state = EMPTY; // enum CellState is EMPTY for time being
+            cell_forest[i][j]->next_state = EMPTY; // next state is EMPTY until the update forest function is called
+            cell_forest[i][j]->my_neighbors = {0}; // setting all neighbors to zero for the time being
+        }
+    }
+
+    /* old version of the forest that was made up of only enums
     //fill forest with EMPTY values from the enum  
     for(int i = 0; i <dimensions; i++){
         for(int j = 0; j <dimensions; j++){
             forest[i][j] = EMPTY; // fill with the EMPTY option of the Enum 
         }
     }
-
+    */
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
@@ -82,10 +87,10 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
 
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
-            forest[x][y] = TREE;   
+            cell_forest[x][y]->current_state = TREE; // field of Cell struct
             --temp_live;
         }else{
-            forest[x][y] = BURNING;
+            cell_forest[x][y]-->current_state =  BURNING; //field of Cell struct
             }       
     }
 
@@ -94,12 +99,12 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
-void print_forest(int dimensions, CellState forest[dimensions][dimensions]) {
+void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
     const char *tree_chars[] = {" ", "Y", "*", "." };
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
-            printf("%s ", tree_chars[forest[i][j]]); // Use the enum value to index into tree_chars
+            printf("%s ", tree_chars[cell_forest[i][j]->current_state]); // current_state field from the Cell struct being used to index tree_chars
         }
         printf("\n"); // Newline after each row
     }
@@ -115,15 +120,17 @@ int main(int argc, char *argv[]){
     
     float burn_trees = BURN;
     int dimension = atoi(argv[1]);
-    int total_cells = dimension * dimension;
-    CellState forest[dimension][dimension];
+    //int total_cells = dimension * dimension;
+    //CellState forest[dimension][dimension]; // changed to Cell Struct 2d array on line 133 
 
-    fill_forest(dimensions, density, burn_trees, forest); 
 
-    // create linked Cell data structure
-    Cell cells[total_cells] = {0}; // initialize x,y posi & state to 0 and my_neighbors to NULL
+    // create 2d array Cell data structure
+    Cell cell_forest[dimension][dimension];  // initialize x,y posi & state to 0 and my_neighbors to NULL
+    
+    fill_forest(dimension, density, burn_trees, cell_forest); 
+
     // print values of the forest grid / matrix
-    print_forest(dimension, forest);
+    print_forest(dimension, cell_forest);
     
     return EXIT_SUCCESS;    
 }
