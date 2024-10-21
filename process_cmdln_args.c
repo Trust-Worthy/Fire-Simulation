@@ -74,6 +74,7 @@ int parse_args( int argc, char * argv[] ) {
 
             } else {
                 fprintf( stderr, "(-pN) number of states to print must be an integer in [0...10000].\n" );
+                print_help_message();
                 return EXIT_FAILURE; // immediately terminate program
             }
             break;
@@ -90,6 +91,7 @@ int parse_args( int argc, char * argv[] ) {
                 break;
             } else {
                 fprintf( stderr, "(-sN)  ) simulation grid size must be an integer in [5...40].\n" );
+                print_help_message();
                 return EXIT_FAILURE;
             } 
             break;
@@ -98,7 +100,8 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.BN = (size_t)tmpsize;
             }else { 
-                fprintf("(-bN) proportion already burning must be an integer in [1...100].\n")
+                fprintf(stderr,"(-bN) proportion already burning must be an integer in [1...100].\n");
+                print_help_message();
                 return EXIT_FAILURE;
             }
             break;
@@ -107,7 +110,8 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.CN = (size_t)tmpsize;
             }else { 
-                fprintf("(-cN) probability a tree will catch fire must be an integer in [1...100].\n")
+                fprintf(stderr,"(-cN) probability a tree will catch fire must be an integer in [1...100].\n");
+                print_help_message();
                 return EXIT_FAILURE;
             }
             break;
@@ -116,7 +120,8 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.DN = (size_t)tmpsize;
             }else { 
-                fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
+                fprintf(stderr,"(-DN) density of trees in the grid must be an integer in [1...100].\n");
+                print_help_message();
                 return EXIT_FAILURE;
             }
             break;
@@ -125,7 +130,8 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.NN = (size_t)tmpsize;
             }else { 
-                fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
+                fprintf(stderr,"(-DN) density of trees in the grid must be an integer in [1...100].\n");
+                print_help_message();
                 return EXIT_FAILURE;
             }
             break;
