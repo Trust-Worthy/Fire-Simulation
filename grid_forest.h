@@ -46,6 +46,10 @@ typedef struct EightWay{
 ///
 /// @param neighbors is a pointer to an EightWay struct
 void fill_eight_way(Eightway *neighbors);
+
+
+
+
 /// @brief this function fills a 2d array previously declared  with a value from the CellState enum. 
 /// The ENUM values will be changed to their char representation  when printed to terminal
 ///
