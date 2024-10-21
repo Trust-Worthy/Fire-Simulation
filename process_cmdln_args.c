@@ -28,22 +28,11 @@ void print_help_message(){
     " -dN # density: the proportion of trees in the grid. 0 < N < 101.\n"
     "-nN # proportion of neighbors that influence a tree catching fire. -1 < N < 101.\n"
     "-pN # number of states to print before quitting. -1 < N < ...\n"
-    "-sN # simulation grid size. 4 < N < 41.\n")
+    "-sN # simulation grid size. 4 < N < 41.\n");
 }
 
 
-///
-/// @param args is a pointer to a struct
-void print_struct(CMD_LN_ARGS *args){
-    
-    printf("Values of the struct are below\n");
-    printf("-bN: %d\n", args->BN);
-    printf("-cN: %d\n", args->CN);
-    printf("-dN: %d\n", args->DN);
-    printf("-nN: %d\n", args->NN);
-    printf("-pN: %d\n", args->PN);
-    printf("-sN: %d\n", args->SN);
-}
+
     
 
 
@@ -65,7 +54,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'p':
             tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 ) {
-                cmds_struct.PN = (int)tmpsize; // assigning to struct
+                cmds_struct.PN = (size_t)tmpsize; // assigning to struct
                 print_header(cmds_struct.PN);
                 // do some other funtions to make the program run
 
@@ -85,7 +74,7 @@ int parse_args( int argc, char * argv[] ) {
         case 's':
             tmpsize = (int)strtol( optarg, NULL, BASE_10);
             if ( tmpsize >= 5 || tmpsize <= 40) { // min size of grid is 5x5 and max size is 40x40
-                cmds_struct.SN  = (int)tmpsize;
+                cmds_struct.SN  = (size_t)tmpsize;
                 break;
             } else {
                 fprintf( stderr, "(-sN)  ) simulation grid size must be an integer in [5...40].\n" );
@@ -95,7 +84,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'b': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.BN = (int)tmpsize;
+                cmds_struct.BN = (size_t)tmpsize;
             }else { 
                 fprintf("(-bN) proportion already burning must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
@@ -104,7 +93,7 @@ int parse_args( int argc, char * argv[] ) {
         case 'c':
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.CN = (int)tmpsize;
+                cmds_struct.CN = (size_t)tmpsize;
             }else { 
                 fprintf("(-cN) probability a tree will catch fire must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
@@ -113,21 +102,13 @@ int parse_args( int argc, char * argv[] ) {
         case 'd': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.DN = (int)tmpsize;
+                cmds_struct.DN = (size_t)tmpsize;
             }else { 
                 fprintf("(-DN) density of trees in the grid must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
             }
             break;
-        case 'n':
-            tmpsize = (int)strtol(optarg,NULL,BASE_10);
-            if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
-                cmds_struct.NN = (int)tmpsize;
-            }else { 
-                fprintf("(-nN) %%neighbors influence catching fire must be an integer in[1...100].\n")
-                return EXIT_FAILURE;
-            }
-            break;
+        case '
         default:
             // some unknown, possibly unacceptable option flag
             fprintf( stderr, "Unknown flag: please try a define flag as listed in the Configuration Options\n" );
@@ -137,11 +118,11 @@ int parse_args( int argc, char * argv[] ) {
     }
 
     // use cmd ln struct to initialize the simulation
-    
 
-    //print out struct for testing purposes
-    print_sturct(&cmds_struct);
-    
+
+
+
+
     return EXIT_SUCCESS;
 }
 
