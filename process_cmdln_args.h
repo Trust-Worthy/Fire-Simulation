@@ -19,13 +19,14 @@
 // -pN # number of states to print before quitting. -1 < N < ...
 // -sN # simulation grid size. 4 < N < 41.
 
-typedef enum {
-     BN = 0,
-     CN = 0,
-     DN = 0,
-     NN = 0,
-     PN = 0, 
-     SN = 0 // all of these values are taken as integers from the user. 
+typedef struct ARGS{
+     int BN;
+     int CN;// all of these values are taken as integers from the user.
+     int DN;
+     int NN;
+     int PN;
+     int PN;
+
 } CMD_LN_ARGS;
 
 
