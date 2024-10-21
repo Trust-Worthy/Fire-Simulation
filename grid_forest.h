@@ -25,14 +25,20 @@ typedef enum CellState {
 typedef struct point{
     unsigned int x_position = 0;
     unsigned int y_position = 0;
-}CellLocation;
+}Cell;
 
 ///
 /// @brief struct to model the 8-way connectivity between cells
 typedef struct EightWay{
-    
-
-
+     Cell source_cell; // cell that's directly in the middle
+     Cell n_cell; // cell that's directly above: (row -1, col)
+     Cell nw_cell; // cell that's above and to the left: (row - 1, col -1)
+     Cell ne_cell; // cell that's above and to the right: (row - 1, col +1)
+     Cell s_cell; // cell that's directly below: (row + 1, col)
+     Cell sw_cell; // cell that's below and to the left: (row + 1, col - 1)
+     Cell se_cell; // cell that's below and to the right: (row + 1, col + 1)
+     Cell e_cell; // cell that's directly to the right: (row, col + 1)
+     Cell w_cell; // cell that's directly to the left: (row, col - 1)
 }EightWay;
 
 /// @param dimensions the dimensions of the forest
