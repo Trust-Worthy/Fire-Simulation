@@ -17,8 +17,15 @@ static float BURN = 14.0;
 /// @param density --> the percentage of cells of the forest that will be filled with trees
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
-void fill_forest(int dimensions, float density, float burning_trees,char forest[dimensions][dimensions]){
-    
+void fill_forest(int dimensions, float density, float burning_trees, CellState  forest[dimensions][dimensions]){
+    //fill forest with EMPTY values from the enum  
+    for(int i = 0; i <dimension; i++){
+        for(int j = 0; j <dimension; j++){
+            forest[i][j] = EMPTY; // fill with the EMPTY option of the Enum 
+        }
+    }
+
+
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions **2)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * density)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
@@ -39,22 +46,27 @@ void fill_forest(int dimensions, float density, float burning_trees,char forest[
 
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
-            CellState state = TREE;
             forest[x][y] = TREE;   
             --templive;
         }else{
-            forest[x][y] = CellState BURNING;
+            forest[x][y] = BURNING;
+            }       
     }
 }
 
-void print_forest(int dimensions, char forest[dimensions][dimensions]){ 
-    for(int i = 0; i <dimensions; i++){
-        for(int j =0; j<dimensions; j++){
-           printf(" row: %d col: %d, value: %c\n", i,j, forest[i][j]);
-        }
-    } 
-}
+/// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
+/// @param dimensions the dimensions of the forest
+/// @param forest the 2d forest array
+void print_forest(int dimensions, CellState forest[dimensions][dimensions]) {
+    const char *tree_chars[] = { ' ', 'Y', '*', '.' };
 
+    for (int i = 0; i < dimensions; i++) { // Print every row
+        for (int j = 0; j < dimensions; j++) { // Print each cell in the row
+            printf("%c ", tree_chars[forest[i][j]]); // Use the enum value to index into tree_chars
+        }
+        printf("\n"); // Newline after each row
+    }
+}
 int main(int argc, char *argv[]){
     // making up values for cmd ln args
     
@@ -63,11 +75,6 @@ int main(int argc, char *argv[]){
     float burn_trees = BURN;
     int dimension = atoi(argv[1]); 
     CellState forest[dimension][dimension];
-    for(int i = 0; i <dimension; i++){
-        for(int j = 0; j <dimension; j++){
-            forest[i][j] = EMPTY; 
-        }
-    }
 
     fill_forest(dimension, density, burn_trees, forest); 
 
@@ -75,5 +82,5 @@ int main(int argc, char *argv[]){
     // print values of the forest grid / matrix
     print_forest(dimension, forest);
     
-    
+    return EXIT_SUCCESS;    
 }
