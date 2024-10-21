@@ -19,10 +19,11 @@ void create_forest(int dimensions);
 void fill_forest(float density)
 
 
-/// @param
+/// @param forest is a pointer to a pointer to a 2d array
 char **print_forest(char **forest);
 
-void update_forest();
+/// @param forest is a pointer to a pointer to a 2d array
+void update_forest(char **forest);
 
 
 
