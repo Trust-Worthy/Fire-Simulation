@@ -41,12 +41,6 @@ typedef struct EightWay{
      Cell w_cell; // cell that's directly to the left: (row, col - 1)
 }EightWay;
 
-/// @brief creates a variable
-/// @param dimensions are the dimensions of the forest
-///
-/// @note create_forest is only called once every time the program runs
-/// 
-void create_forest(int dimensions);
 
 /// @brief this function fills a 2d array previously declared  with a value from the CellState enum. 
 /// The ENUM values will be changed to their char representation  when printed to terminal
@@ -61,9 +55,9 @@ void create_forest(int dimensions);
 /// @note fill_forest only has to be called once every time the program runs
 void fill_forest(int dimensions, float density, float burning_trees, char (*forest)[dimensions]);
 
-
+/// @brief printing out a 2d array that represents the forest
 /// @param forest is a pointer to a pointer to a 2d array
-char **print_forest(char **forest);
+void print_forest(char **forest);
 
 
 /// @brief update forest updates the forest based on the current cycle configuration
