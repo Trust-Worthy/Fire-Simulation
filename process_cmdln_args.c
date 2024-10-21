@@ -13,6 +13,18 @@
 
 #define BASE_10 10 // will be used for converting string to integers in base 10
 
+// @param states -- the number of times the simulation will run and print out the board 
+void print_header(int states){
+    printf(
+    "===========================\n"
+    "======== Wildfire =========\n"
+    "===========================\n"
+    "=== Print %d Time Steps ===\n"
+    "===========================\n", states);
+}
+
+
+
 // -H option is selected by user
 void print_help_message(){
     printf("$ wildfire -H\n"
