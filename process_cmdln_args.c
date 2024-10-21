@@ -52,7 +52,7 @@ void print_struct(CMD_LN_ARGS *args){
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
-int parse_args( int argc, char * argv[] ) {
+int main( int argc, char * argv[] ) {
 
     int opt; //the option returned from getopt()
     int tmpsize = 0; // a temporary variable for type safety purposes
@@ -120,7 +120,7 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > 0 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.DN = (size_t)tmpsize;
             }else { 
-                fprintf(stderr,"(-DN) density of trees in the grid must be an integer in [1...100].\n");
+                fprintf(stderr,"(-dN) density of trees in the grid must be an integer in [1...100].\n");
                 print_help_message();
                 return EXIT_FAILURE;
             }
@@ -130,8 +130,7 @@ int parse_args( int argc, char * argv[] ) {
             if (tmpsize > -1 || tmpsize < 101){ // 0 < N < 101
                 cmds_struct.NN = (size_t)tmpsize;
             }else { 
-                fprintf(stderr,"(-DN) density of trees in the grid must be an integer in [1...100].\n");
-                print_help_message();
+                fprintf(stderr, "(-nN) density of trees in the grid must be an integer in [1...100].\n")
                 return EXIT_FAILURE;
             }
             break;
