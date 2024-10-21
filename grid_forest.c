@@ -45,7 +45,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
             cell_forest[i][j].y_position = j; // y_position
             cell_forest[i][j].current_state = EMPTY; // enum CellState is EMPTY for time being
             cell_forest[i][j].next_state = EMPTY; // next state is EMPTY until the update forest function is called
-            cell_forest[i][j]->my_neighbors = {0}; // setting all neighbors to zero for the time being
+            cell_forest[i][j].my_neighbors = {0}; // setting all neighbors to zero for the time being
         }
     }
 
@@ -87,10 +87,10 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
-            cell_forest[x][y]->current_state = TREE; // field of Cell struct
+            cell_forest[x][y].current_state = TREE; // field of Cell struct
             --temp_live;
         }else{
-            cell_forest[x][y]-->current_state =  BURNING; //field of Cell struct
+            cell_forest[x][y].current_state =  BURNING; //field of Cell struct
             }       
     }
 
@@ -104,7 +104,7 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
-            printf("%s ", tree_chars[cell_forest[i][j]->current_state]); // current_state field from the Cell struct being used to index tree_chars
+            printf("%s ", tree_chars[cell_forest[i][j].current_state]); // current_state field from the Cell struct being used to index tree_chars
         }
         printf("\n"); // Newline after each row
     }
