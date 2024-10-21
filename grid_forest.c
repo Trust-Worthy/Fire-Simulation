@@ -18,6 +18,7 @@ static float BURN = 14.0;
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
 void fill_forest(int dimensions, float density, float burning_trees, CellState  forest[dimensions][dimensions]){
+    
     //fill forest with EMPTY values from the enum  
     for(int i = 0; i <dimension; i++){
         for(int j = 0; j <dimension; j++){
@@ -25,11 +26,11 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
         }
     }
 
-
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions **2)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * density)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
     int live_trees = num_trees - num_burn_trees; 
+    
     //generate random (x,y) pairs to place the live and burning trees
     int used[dimensions][dimensions] = {0}
     int temp_live = live_trees;
@@ -52,6 +53,7 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
             forest[x][y] = BURNING;
             }       
     }
+
 }
 
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
