@@ -17,11 +17,12 @@ static float BURN = 23.0;
 ///
 ///
 /// @note the Cell being passed in has already been initialized
-void add_cell_neighbors(Cell *source_cell){
+void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimension][dimension]){
     if (source_cell != NULL){
         //acessing the EightWay struct field of the Cell
-        if(source_cell->my_neighbors != NULL){
-        
+        if(source_cell.my_neighbors = NULL){
+            // calculate neighbors based on formula
+            // use those coordinates to find my cell neighbors in cell_forest
         }
     }
 
@@ -45,7 +46,8 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
             cell_forest[i][j].y_position = j; // y_position
             cell_forest[i][j].current_state = EMPTY; // enum CellState is EMPTY for time being
             cell_forest[i][j].next_state = EMPTY; // next state is EMPTY until the update forest function is called
-            cell_forest[i][j].my_neighbors = {0}; // setting all neighbors to zero for the time being
+            cell_forest[i][j].my_neighbors = NULL; // setting all neighbors to zero for the time being
+            // when it comes time to populate my_neighbors, I have to point this pointer to the correct Cell in the cell_forest
         }
     }
 
