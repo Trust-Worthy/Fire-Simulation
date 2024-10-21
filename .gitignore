@@ -42,7 +42,7 @@ err.*
 *.pyc
 *.s
 *.i
-
+process_cmdln_args
 # Packages and archives
 #
 # It's better to unpack these files and commit the raw source,
