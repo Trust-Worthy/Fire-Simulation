@@ -3,6 +3,9 @@
 /// @file header file that defines functions for the forest_grid.c file
 /// @author Jonathan Bateman jmb7342@rit.edu
 /// This file creates the grid based on cmd line inputs, fills in the grid with the appropriate amount of trees, and updates the grid
+///
+/// @note the 2d array of CellStates, the forest, reads its values from the Cell array (data structure) to update, the Cell array data
+
 
 #include <stdio.h>
 #include <math.h>
@@ -25,12 +28,14 @@ typedef enum {
 typedef struct CellPoint{
     unsigned int x_position;
     unsigned int y_position;
+    CellState current_state;
+    CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
+    EightWay *my_neighbors;
 }Cell;
 
 ///
 /// @brief struct to model the 8-way connectivity between cells
 typedef struct EightWay{
-     Cell source_cell; // cell that's directly in the middle
      Cell n_cell; // cell that's directly above: (row -1, col)
      Cell nw_cell; // cell that's above and to the left: (row - 1, col -1)
      Cell ne_cell; // cell that's above and to the right: (row - 1, col +1)
@@ -45,7 +50,7 @@ typedef struct EightWay{
 /// @brief this function fills in all the coordinates values for the neighbors of an individual cell
 ///
 /// @param neighbors is a pointer to an EightWay struct
-void fill_eight_way(EightWay *neighbors);
+void add_cell_neighbors(Cell *forest_cell);
 
 
 

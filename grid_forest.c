@@ -13,13 +13,38 @@
 static float DENSITY = 72.0;
 static float BURN = 23.0;
 
+
+///
+///
+/// @note the Cell being passed in has already been initialized
+void add_cell_neighbors(Cell *source_cell){
+    if (source_cell != NULL){
+        //acessing the EightWay struct field of the Cell
+        if(source_cell->my_neighbors != NULL){
+        
+        }
+    }
+
+}
+
+
+
+
 ///
 /// @param dimensions --> dimensions of the forest as specified by user
 /// @param density --> the percentage of cells of the forest that will be filled with trees
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
 void fill_forest(int dimensions, float density, float burning_trees, CellState  forest[dimensions][dimensions]){
-    
+   
+    // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
+    // fill every item of 2d array with a new Cell struct. Set all fields of that struct to zero or NULL;
+    for(int i = 0; i < dimensions; i++){
+        for(int j = 0; j < dimensions; j++){
+            forest[i][j]->x_position = i; // x_position
+            forest[i][j]->y_position = j; // y_position
+            forest[i][j]->current_state = EMPTY; // enum CellState is EMPTY for time being
+            forest[i][j]->next_state = EMPTY; // next state is EMPTY until the update forest function is called
     //fill forest with EMPTY values from the enum  
     for(int i = 0; i <dimensions; i++){
         for(int j = 0; j <dimensions; j++){
@@ -83,17 +108,20 @@ int main(int argc, char *argv[]){
     //randomness
     srand(time(NULL));
 
+
     // making up values for cmd ln args
     
     float density = DENSITY / 100.0; // 10x10 grid so 100 cells. 38% of these cells will be filled with trees
     
     float burn_trees = BURN;
-    int dimension = atoi(argv[1]); 
+    int dimension = atoi(argv[1]);
+    int total_cells = dimension * dimension;
     CellState forest[dimension][dimension];
 
-    fill_forest(dimension, density, burn_trees, forest); 
+    fill_forest(dimensions, density, burn_trees, forest); 
 
-
+    // create linked Cell data structure
+    Cell cells[total_cells] = {0}; // initialize x,y posi & state to 0 and my_neighbors to NULL
     // print values of the forest grid / matrix
     print_forest(dimension, forest);
     
