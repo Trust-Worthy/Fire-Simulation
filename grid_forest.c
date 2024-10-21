@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "grid_forest.h"
 #include "process_cmdln_args.h"
 
 
-static float DENSITY = 38.0;
-static float BURN = 14.0;
+static float DENSITY = 72.0;
+static float BURN = 23.0;
 
 ///
 /// @param dimensions --> dimensions of the forest as specified by user
@@ -28,9 +29,12 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
 
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
-    int num_burn_trees = floor(((burning_trees / 100.0) * density)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
+    int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
     int live_trees = num_trees - num_burn_trees; 
     
+    printf("num_trees: %d\n",num_trees);
+    printf("burning trees: %d\n",num_burn_trees);
+    printf("living trees: %d\n", live_trees);
     //generate random (x,y) pairs to place the live and burning trees
     int used[dimensions][dimensions];
     // Initialize all elements to 0 bc it's a variable length array;
@@ -66,7 +70,7 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
 void print_forest(int dimensions, CellState forest[dimensions][dimensions]) {
-    const char *tree_chars[] = { " ", "Y", "*", "." };
+    const char *tree_chars[] = {" ", "Y", "*", "." };
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
@@ -76,6 +80,9 @@ void print_forest(int dimensions, CellState forest[dimensions][dimensions]) {
     }
 }
 int main(int argc, char *argv[]){
+    //randomness
+    srand(time(NULL));
+
     // making up values for cmd ln args
     
     float density = DENSITY / 100.0; // 10x10 grid so 100 cells. 38% of these cells will be filled with trees
