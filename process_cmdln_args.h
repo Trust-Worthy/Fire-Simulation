@@ -25,7 +25,7 @@ typedef struct {
      int DN;
      int NN;
      int PN;
-     int PN;
+     int SN;
 } CMD_LN_ARGS;
 
 /// function: print_struct prints out all the values of the struct
