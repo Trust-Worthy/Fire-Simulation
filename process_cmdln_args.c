@@ -76,7 +76,7 @@ int main( int argc, char * argv[] ) {
         switch ( opt ) {
         case 'p':
             tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
-            if ( tmpsize > 0 ) {
+            if ( tmpsize > 0 && tmpsize < 10000 ) {
                 cmds_struct.PN = (size_t)tmpsize; // assigning to struct
                 print_header(cmds_struct.PN);
                 // do some other funtions to make the program run
@@ -140,6 +140,7 @@ int main( int argc, char * argv[] ) {
                 cmds_struct.NN = (size_t)tmpsize;
             }else { 
                 fprintf(stderr, "(-nN) density of trees in the grid must be an integer in [1...100].\n");
+                print_help_message();
                 return EXIT_FAILURE;
             }
             break;
