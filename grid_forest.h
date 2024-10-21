@@ -23,8 +23,8 @@ typedef enum CellState {
 ///
 /// @brief this struct defines each individual cells' position in the context of the entire grid
 typedef struct CellPoint{
-    unsigned int x_position = 0;
-    unsigned int y_position = 0;
+    unsigned int x_position;
+    unsigned int y_position;
 }Cell;
 
 ///
@@ -45,7 +45,7 @@ typedef struct EightWay{
 /// @brief this function fills in all the coordinates values for the neighbors of an individual cell
 ///
 /// @param neighbors is a pointer to an EightWay struct
-void fill_eight_way(Eightway *neighbors);
+void fill_eight_way(EightWay *neighbors);
 
 
 
