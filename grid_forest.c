@@ -20,19 +20,25 @@ static float BURN = 14.0;
 void fill_forest(int dimensions, float density, float burning_trees, CellState  forest[dimensions][dimensions]){
     
     //fill forest with EMPTY values from the enum  
-    for(int i = 0; i <dimension; i++){
-        for(int j = 0; j <dimension; j++){
+    for(int i = 0; i <dimensions; i++){
+        for(int j = 0; j <dimensions; j++){
             forest[i][j] = EMPTY; // fill with the EMPTY option of the Enum 
         }
     }
 
     // caluculations --> floor function to get integer num of trees
-    int num_trees = floor(density  * (dimensions **2)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
+    int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * density)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
     int live_trees = num_trees - num_burn_trees; 
     
     //generate random (x,y) pairs to place the live and burning trees
-    int used[dimensions][dimensions] = {0}
+    int used[dimensions][dimensions];
+    // Initialize all elements to 0 bc it's a variable length array;
+    for (int i = 0; i < dimensions; i++) {
+        for (int j = 0; j < dimensions; j++) {
+            used[i][j] = 0;
+        }
+    }
     int temp_live = live_trees;
     for(int i = 0; i < num_trees; i++){
         int x,y;
@@ -48,7 +54,7 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
             forest[x][y] = TREE;   
-            --templive;
+            --temp_live;
         }else{
             forest[x][y] = BURNING;
             }       
@@ -60,11 +66,11 @@ void fill_forest(int dimensions, float density, float burning_trees, CellState  
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
 void print_forest(int dimensions, CellState forest[dimensions][dimensions]) {
-    const char *tree_chars[] = { ' ', 'Y', '*', '.' };
+    const char *tree_chars[] = { " ", "Y", "*", "." };
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
-            printf("%c ", tree_chars[forest[i][j]]); // Use the enum value to index into tree_chars
+            printf("%s ", tree_chars[forest[i][j]]); // Use the enum value to index into tree_chars
         }
         printf("\n"); // Newline after each row
     }
