@@ -119,10 +119,14 @@ int parse_args( int argc, char * argv[] ) {
 
     // use cmd ln struct to initialize the simulation
 
+<<<<<<< HEAD
 
 
 
 
+=======
+    
+>>>>>>> parent of f4e066f... Finished implementing the helper function to print out the struct. Testing time now.
     return EXIT_SUCCESS;
 }
 
