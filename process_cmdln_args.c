@@ -32,6 +32,18 @@ void print_help_message(){
 }
 
 
+/// @param args pointer to a struct
+void print_struct(CMD_LN_ARGS *args){
+    
+    printf("This is the struct\n");
+    printf("-bN: %d\n",args->BN);
+    printf("-cN: %d\n",args->CN);
+    printf("-dN: %d\n",args->DN);
+    printf("-nN: %d\n",args->NN);
+    printf("-pN: %d\n",args->PN);
+    printf("-sN: %d\n",args->SN);
+
+}
 
     
 
