@@ -113,6 +113,10 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
     }
 }
 int main(int argc, char *argv[]){
+
+    if(argc < 1){
+        return EXIT_FAILURE;
+    }
     //randomness
     srand(time(NULL));
 

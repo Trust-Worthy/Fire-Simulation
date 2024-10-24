@@ -23,10 +23,10 @@ typedef enum {
     BURNED
 } CellState;
 
-typedef struct EightWay EightWay; // forward declaration
+typedef struct EightWay EightWay; // forward declaration so compiler doesn't yell
 
 ///
-/// @brief this struct defines each individual cells' position in the context of the entire grid
+/// @brief this struct defines each individual cells position in the context of the entire grid
 typedef struct CellPoint{
     unsigned int x_position;
     unsigned int y_position;
