@@ -25,27 +25,29 @@ typedef enum {
 
 typedef struct EightWay EightWay; // forward declaration so compiler doesn't yell
 
+
 ///
 /// @brief this struct defines each individual cells position in the context of the entire grid
 typedef struct CellPoint{
-    unsigned int x_position;
-    unsigned int y_position;
+    unsigned int x_position;        ///< X position of the cell corresponds to row
+    unsigned int y_position;        ///< Y position of cell corresponds to col
     CellState current_state;
     CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
     EightWay *my_neighbors;
 }Cell;
 
+
 ///
 /// @brief struct to model the 8-way connectivity between cells
 typedef struct EightWay{
-     Cell n_cell; // cell that's directly above: (row -1, col)
-     Cell nw_cell; // cell that's above and to the left: (row - 1, col -1)
-     Cell ne_cell; // cell that's above and to the right: (row - 1, col +1)
-     Cell s_cell; // cell that's directly below: (row + 1, col)
-     Cell sw_cell; // cell that's below and to the left: (row + 1, col - 1)
-     Cell se_cell; // cell that's below and to the right: (row + 1, col + 1)
-     Cell e_cell; // cell that's directly to the right: (row, col + 1)
-     Cell w_cell; // cell that's directly to the left: (row, col - 1)
+     Cell *n_cell; // cell that's directly above: (row -1, col)
+     Cell *nw_cell; // cell that's above and to the left: (row - 1, col -1)
+     Cell *ne_cell; // cell that's above and to the right: (row - 1, col +1)
+     Cell *s_cell; // cell that's directly below: (row + 1, col)
+     Cell *sw_cell; // cell that's below and to the left: (row + 1, col - 1)
+     Cell *se_cell; // cell that's below and to the right: (row + 1, col + 1)
+     Cell *e_cell; // cell that's directly to the right: (row, col + 1)
+     Cell *w_cell; // cell that's directly to the left: (row, col - 1)
 }EightWay;
 
 
@@ -54,9 +56,48 @@ typedef struct EightWay{
 /// @param source_cell is a pointer to an indivdual cell struct
 /// @param cell_forest is a 2d array of Cell structs
 /// @param dimensions are the dimensions of the forest / cell forest
-void add_cell_neighbors(Cell *source_cell,Cell cell_forest[dimensions][dimensions]);
+void add_cell_neighbors(int dimensions, Cell *source_cell,Cell cell_forest[dimensions][dimensions]);
+
+/// @ref quick helper functions that take in 1 coordinate and output the correspoding coordinate
+/// based on the direction specified. I used inline because it will make the execution more efficient
+/// as these functions will be called often.
+static inline int get_north_x_coor(int source_x){return source_x - 1;}
+static inline int get_north_y_coor(int source_y){return source_y;}
+
+static inline int get_north_east_x_coor(int source_x){return source_x - 1;}
+static inline int get_north_east_y_coor(int source_y){return source_y + 1;}
+
+static inline int get_north_west_x_coor(int source_x){return source_x - 1;}
+static inline int get_north_west_y_coor(int source_y){return source_y - 1;}
+
+static inline int get_south_x_coor(int source_x){return source_x + 1;}
+static inline int get_south_y_coor(int source_y){return source_y;}
+
+static inline int get_south_east_x_coor(int source_x){return source_x + 1;}
+static inline int get_south_east_y_coor(int source_y){return source_y + 1;}
+
+static inline int get_south_west_x_coor(int source_x){return source_x + 1;}
+static inline int get_south_west_y_coor(int source_y){return source_y - 1;}
+
+static inline int get_east_x_coor(int source_x){return source_x;}
+static inline int get_east_y_coor(int source_y){return source_y + 1;}
+
+static inline int get_west_x_coor(int source_x){return source_x;}
+static inline int get_west_y_coor(int source_y){return source_y - 1;}
 
 
+
+
+
+
+
+
+static inline void get_north_west(Cell *cell);
+static inline void get_south(Cell *cell);
+static inline void get_south_east(Cell *cell);
+static inline void get_south_west(Cell *cell);
+static inline void get_east(Cell *cell);
+static inline void get_west(Cell *cell);
 
 
 /// @brief this function fills a 2d array previously declared  with a value from the CellState enum. 

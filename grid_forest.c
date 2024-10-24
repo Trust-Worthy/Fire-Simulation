@@ -14,19 +14,42 @@ static float DENSITY = 72.0;
 static float BURN = 23.0;
 
 
-///
+/// @param dimensions is the number of dimenisons that forest is
 ///
 /// @note the Cell being passed in has already been initialized
 
-void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimensions][dimensions]){
+void add_cell_neighbors(int dimensions, Cell *source_cell,Cell cell_forest[dimensions][dimensions]){
+    
+    
+    int source_x = source_cell->x_position;
+    int source_y = source_cell->y_position;
+
+
+    if(dimensions)
     if (source_cell != NULL){
+        /// when do i fille the cells x and y position???
+
+        /// don't point to a "new" n_cell, point to the cell that is north of source cell
+        /// that's in the cell_forest array already
+
+        /// @note cells that are in corner positions def won't have neighbors in certain directions
+        /// so set those empty spots to null
+        
+        if(source_cell->x_position == 1 & source_cell->y_position == 1){
+            source_cell->my_neighbors->nw_cell = NULL;
+
+        }
+
+
         //acessing the EightWay struct field of the Cell
         if(source_cell->my_neighbors = NULL){
             // calculate neighbors based on formula / 8 points around a point in the center
 
 
-            /// @note this is the cell to the north of the source cell
-            source_cell->my_neighbors->n_cell.x_position = (source_cell->x_position - 1);
+            /// @note this is the cell to the north of the source cell ///wow the & operator changed everything
+            source_cell->my_neighbors->n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
+            
+            
             source_cell->my_neighbors->n_cell.y_position = (source_cell->y_position);
             /// @note this is the cell to the northeast of the source cell
             source_cell->my_neighbors->ne_cell.x_position = (source_cell->x_position - 1);
