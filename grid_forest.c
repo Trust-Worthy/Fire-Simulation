@@ -18,11 +18,28 @@ static float BURN = 23.0;
 ///
 /// @note the Cell being passed in has already been initialized
 
-void add_cell_neighbors(int dimensions, Cell *source_cell,Cell cell_forest[dimensions][dimensions]){
+void add_cell_neighbors(int dimensions, 
+                        Cell *source_cell,
+                        Cell cell_forest[dimensions][dimensions]){
     
     
     int source_x = source_cell->x_position;
     int source_y = source_cell->y_position;
+
+    int north_x = get_north_x_coor(source_x);
+    int north_y = get_north_y_coor(source_y);
+    int northeast_x = get_north_east_x_coor(source_x);
+    int northeast_y = get_north_east_y_coor(source_y);
+    int north_west_x = get_north_west_x_coor(source_x);
+    int north_west_y = get_north_west_y_coor(source_y);
+    int south_x = get_south_x_coor(source_x);
+    int south_y = get_south_y_coor(source_y);
+    int southeast_x = get_south_east_x_coor(source_x);
+    int south_east_y = get_south_east_y_coor(source_y);
+    int east_x = get_east_x_coor(source_x);
+    int east_y = get_east_y_coor(source_y);
+    int west_x = get_west_x_coor(source_x);
+    int west_y = get_west_y_coor(source_y);
 
 
     if(dimensions)
@@ -48,13 +65,17 @@ void add_cell_neighbors(int dimensions, Cell *source_cell,Cell cell_forest[dimen
 
             /// @note this is the cell to the north of the source cell ///wow the & operator changed everything
             source_cell->my_neighbors->n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
-            
-            
+            /// @note this is the cell to the north east of the source cell
+            source_cell->my_neighbors->ne_cell = &cell_forest[get_north_east_x_coor(source_x)][get_north_east_y_coor(source_y)];
+            /// @note this is the cell to the northwest of the source cell
+            source_cell->my_neighbors->nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north__y_coor(source_y)];
+
+
             source_cell->my_neighbors->n_cell.y_position = (source_cell->y_position);
             /// @note this is the cell to the northeast of the source cell
             source_cell->my_neighbors->ne_cell.x_position = (source_cell->x_position - 1);
             source_cell->my_neighbors->ne_cell.y_position = (source_cell->y_position+1);
-            /// @note this is the cell to the northwest of the source cell
+            
             source_cell->my_neighbors->nw_cell.x_position = (source_cell->x_position - 1);
             source_cell->my_neighbors->nw_cell.y_position = (source_cell->y_position - 1);
 
