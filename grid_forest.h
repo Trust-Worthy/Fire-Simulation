@@ -51,8 +51,10 @@ typedef struct EightWay{
 
 /// @brief this function fills in all the coordinates values for the neighbors of an individual cell
 ///
-/// @param neighbors is a pointer to an EightWay struct
-void add_cell_neighbors(Cell *cell_forest);
+/// @param source_cell is a pointer to an indivdual cell struct
+/// @param cell_forest is a 2d array of Cell structs
+/// @param dimensions are the dimensions of the forest / cell forest
+void add_cell_neighbors(Cell *source_cell,Cell cell_forest[dimensions][dimensions]);
 
 
 

@@ -17,19 +17,46 @@ static float BURN = 23.0;
 ///
 ///
 /// @note the Cell being passed in has already been initialized
-/*
-void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimension][dimension]){
+
+void add_cell_neighbors(Cell *source_cell, Cell cell_forest[dimensions][dimensions]){
     if (source_cell != NULL){
         //acessing the EightWay struct field of the Cell
-        if(source_cell.my_neighbors = NULL){
-            // calculate neighbors based on formula
-            // use those coordinates to find my cell neighbors in cell_forest
+        if(source_cell->my_neighbors = NULL){
+            // calculate neighbors based on formula / 8 points around a point in the center
+
+
+            /// @note this is the cell to the north of the source cell
+            source_cell->my_neighbors->n_cell.x_position = (source_cell->x_position - 1);
+            source_cell->my_neighbors->n_cell.y_position = (source_cell->y_position);
+            /// @note this is the cell to the northeast of the source cell
+            source_cell->my_neighbors->ne_cell.x_position = (source_cell->x_position - 1);
+            source_cell->my_neighbors->ne_cell.y_position = (source_cell->y_position+1);
+            /// @note this is the cell to the northwest of the source cell
+            source_cell->my_neighbors->nw_cell.x_position = (source_cell->x_position - 1);
+            source_cell->my_neighbors->nw_cell.y_position = (source_cell->y_position - 1);
+
+            /// @note this is the cell to the east of the source cell
+            source_cell->my_neighbors->e_cell.x_position = (source_cell->x_position);
+            source_cell->my_neighbors->e_cell.x_position = (source_cell->y_position +1);
+            /// @note this is the cell to the west of the source cell
+            source_cell->my_neighbors->w_cell.x_position = (source_cell->x_position);
+            source_cell->my_neighbors->w_cell.y_position = (source_cell->y_position - 1);
+
+            /// @note this is the cell to the south of the source cell
+            source_cell->my_neighbors->s_cell.x_position = (source_cell->x_position + 1);
+            source_cell->my_neighbors->s_cell.y_position = (source_cell->y_position);
+            /// @note this is the cell to the southeast of the source cell
+            source_cell->my_neighbors->se_cell.x_position = (source_cell->x_position + 1);
+            source_cell->my_neighbors->se_cell.y_position = (source_cell->y_position + 1);
+            /// @note this is thecell to the southwest of the s ource cell
+            source_cell->my_neighbors->sw_cell.x_position = (source_cell->x_position + 1);
+            source_cell->my_neighbors->sw_cell.y_position = (source_cell->y_position -1);
+            /// how do I tell if a cell doesn't have neighbors in a certain direction??
         }
     }
 
 }
 
-*/
 
 
 ///
@@ -52,14 +79,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
         }
     }
 
-    /* old version of the forest that was made up of only enums
-    //fill forest with EMPTY values from the enum  
-    for(int i = 0; i <dimensions; i++){
-        for(int j = 0; j <dimensions; j++){
-            forest[i][j] = EMPTY; // fill with the EMPTY option of the Enum 
-        }
-    }
-    */
+
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
