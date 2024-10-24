@@ -11,7 +11,7 @@ revisions.txt
 a.out
 # ADD OTHER ASSIGNMENT_SPECIFIC FILES HERE, such as load module
 # names, etc.
-
+.vscode
 #########################################################
 # "Boilerplate" files - these are things we almost always
 # want git to ignore
