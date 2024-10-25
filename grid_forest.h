@@ -116,11 +116,56 @@ static inline bool is_bottom_right_corner(int source_x, int source_y, int dimens
 /// @param source_x 
 /// @param source_y 
 /// @param dimensions
-void set_corner_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
-void set_first_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
-void set_last_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
-void set_first_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
-void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
+void set_corner_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions],
+                               int source_x,int source_y,
+                               int north_x,int north_y,
+                               int north_east_x,int north_east_y,
+                               int north_west_x,int north_west_y,
+                               int south_x,int south_y,
+                               int south_east_x,int south_east_y,
+                               int south_west_x,int south_west_y,
+                               int east_x,int east_y,
+                               int west_x,int west_y);
+void set_first_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions],
+                                int source_x,int source_y,
+                                int north_x,int north_y,
+                                int north_east_x,int north_east_y,
+                                int north_west_x,int north_west_y,
+                                int south_x,int south_y,
+                                int south_east_x,int south_east_y,
+                                int south_west_x,int south_west_y,
+                                int east_x,int east_y,
+                                int west_x,int west_y);
+void set_last_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions],
+                               int source_x,int source_y,
+                               int north_x,int north_y,
+                               int north_east_x,int north_east_y,
+                               int north_west_x,int north_west_y,
+                               int south_x,int south_y,
+                               int south_east_x,int south_east_y,
+                               int south_west_x,int south_west_y,
+                               int east_x,int east_y,
+                               int west_x,int west_y);
+void set_first_row_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions],
+                               int source_x,int source_y,
+                               int north_x,int north_y,
+                               int north_east_x,int north_east_y,
+                               int north_west_x,int north_west_y,
+                               int south_x,int south_y,
+                               int south_east_x,int south_east_y,
+                               int south_west_x,int south_west_y,
+                               int east_x,int east_y,
+                               int west_x,int west_y);
+void set_last_row_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions],
+                               int source_x,int source_y,
+                               int north_x,int north_y,
+                               int north_east_x,int north_east_y,
+                               int north_west_x,int north_west_y,
+                               int south_x,int south_y,
+                               int south_east_x,int south_east_y,
+                               int south_west_x,int south_west_y,
+                               int east_x,int east_y,
+                               int west_x,int west_y);
 static inline bool is_in_first_col(int source_y){
     return (source_y == 1);
 }
