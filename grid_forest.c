@@ -139,42 +139,21 @@ void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
 /// @param dimensions 
 /// @param source_cell 
 /// @param cell_forest 
-void add_cell_neighbors(int dimensions, 
-                        Cell *source_cell,
-                        Cell cell_forest[dimensions][dimensions]){
+void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dimensions][dimensions]){
     if(source_cell == NULL){
         fprintf(stderr,"source cell ptr is null\n"); //something is up with the pointer I'm passing in
-    }else if (source_cell->my_neighbors == NULL)
-    {
-        fprintf(stderr,"neighbors of source cell haven't been initialize\n"); 
-        // this condition shouldn't be hit because I'm calling add_cell_neigh when I'm filling
-    }                        // the cell forest
-    
+    }
     
     int source_x = source_cell->x_position;
     int source_y = source_cell->y_position;
 
-    int north_x = get_north_x_coor(source_x);
-    int north_y = get_north_y_coor(source_y);
-    int north_east_x = get_north_east_x_coor(source_x);
-    int north_east_y = get_north_east_y_coor(source_y);
-    int north_west_x = get_north_west_x_coor(source_x);
-    int north_west_y = get_north_west_y_coor(source_y);
-    int south_x = get_south_x_coor(source_x);
-    int south_y = get_south_y_coor(source_y);
-    int south_east_x = get_south_east_x_coor(source_x);
-    int south_east_y = get_south_east_y_coor(source_y);
-    int south_west_x = get_south_west_x_coor(source_x);
-    int south_west_y = get_south_west_y_coor(source_y);
-    int east_x = get_east_x_coor(source_x);
-    int east_y = get_east_y_coor(source_y);
-    int west_x = get_west_x_coor(source_x);
-    int west_y = get_west_y_coor(source_y);
+    
+    fprintf(stdout,"got to line 168");
 
     /// @note cells that are in corner positions def won't have neighbors in certain directions
     /// so set those empty spots to null
         
-    if(is_corner_cell(source_x,source_y,dimensions)==true){
+    if(is_corner_cell(source_x,source_y,dimensions)){
         void set_corner_cell_neighbors(Cell *source_cell,int dimensions,Cell cell_forest[dimensions][dimensions]);
     }else if(is_in_first_col(source_y)){
         /// set neighbors for first col cells
@@ -194,21 +173,21 @@ void add_cell_neighbors(int dimensions,
 
         /// @note this is the cell to the north of the source cell 
         ///wow the & operator changed everything
-        source_cell->my_neighbors->n_cell = &cell_forest[north_x][north_y];
+        source_cell->my_neighbors->n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
         /// @note this is the cell to the north east of the source cell
-        source_cell->my_neighbors->ne_cell = &cell_forest[north_east_x][north_east_y];
+        source_cell->my_neighbors->ne_cell = &cell_forest[get_north_east_y_coor(source_x)][get_north_east_y_coor(source_y)];
         /// @note this is the cell to the northwest of the source cell
-        source_cell->my_neighbors->nw_cell = &cell_forest[north_west_x][north_west_y];
+        source_cell->my_neighbors->nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north_west_y_coor(source_y)];
         /// @note this is the cell to the south of the source cell
-        source_cell->my_neighbors->s_cell = &cell_forest[south_x][south_y];
+        source_cell->my_neighbors->s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
         /// @note this is the cell to the southeast of the source cell
-        source_cell->my_neighbors->se_cell = &cell_forest[south_east_x][south_east_y];
+        source_cell->my_neighbors->se_cell = &cell_forest[get_south_east_x_coor(source_x)][get_south_east_y_coor(source_y)];
         /// @note this is the cell to the southwest of the source cell
-        source_cell->my_neighbors->sw_cell = &cell_forest[south_west_x][south_west_y];
+        source_cell->my_neighbors->sw_cell = &cell_forest[get_south_west_x_coor(source_x)][get_south_west_y_coor(source_y)];
         /// @note this is the cell to the east of the source cell
-        source_cell->my_neighbors->e_cell = &cell_forest[east_x][east_y];
+        source_cell->my_neighbors->e_cell = &cell_forest[get_east_x_coor(source_x)][get_east_y_coor(source_y)];
         /// @note this is the cell to the west of the source cell
-        source_cell->my_neighbors->w_cell = &cell_forest[west_x][west_y];
+        source_cell->my_neighbors->w_cell = &cell_forest[get_west_x_coor(source_x)][get_south_y_coor(source_y)];
 
 
         /// how do I tell if a cell doesn't have neighbors in a certain direction??
@@ -228,8 +207,8 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     Cell *cell_ptr = NULL;
     // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
     // fill every item of 2d array with a new Cell struct. Set all fields of that struct to zero or NULL;
-    for(int i = 0; i < dimensions+1; i++){
-        for(int j = 0; j < dimensions+1; j++){
+    for(int i = 0; i < dimensions; i++){
+        for(int j = 0; j < dimensions; j++){
             cell_ptr = &cell_forest[i][j]; 
             cell_forest[i][j].x_position = i; /// x_position
             cell_forest[i][j].y_position = j; ///y_position
@@ -239,7 +218,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
             
             add_cell_neighbors(dimensions,cell_ptr,cell_forest);///< This is the game changer line
             
-            cell_forest[i][j].my_neighbors = NULL; // setting all neighbors to zero for the time being
+            ///cell_forest[i][j].my_neighbors = NULL; // setting all neighbors to zero for the time being
             // when it comes time to populate my_neighbors, I have to point this pointer to the correct Cell in the cell_forest
         }
     }
