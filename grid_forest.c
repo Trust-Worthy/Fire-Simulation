@@ -28,73 +28,53 @@ void add_cell_neighbors(int dimensions,
 
     int north_x = get_north_x_coor(source_x);
     int north_y = get_north_y_coor(source_y);
-    int northeast_x = get_north_east_x_coor(source_x);
-    int northeast_y = get_north_east_y_coor(source_y);
+    int north_east_x = get_north_east_x_coor(source_x);
+    int north_east_y = get_north_east_y_coor(source_y);
     int north_west_x = get_north_west_x_coor(source_x);
     int north_west_y = get_north_west_y_coor(source_y);
     int south_x = get_south_x_coor(source_x);
     int south_y = get_south_y_coor(source_y);
-    int southeast_x = get_south_east_x_coor(source_x);
+    int south_east_x = get_south_east_x_coor(source_x);
     int south_east_y = get_south_east_y_coor(source_y);
+    int south_west_x = get_south_west_x_coor(source_x);
+    int south_west_y = get_south_west_y_coor(source_y);
     int east_x = get_east_x_coor(source_x);
     int east_y = get_east_y_coor(source_y);
     int west_x = get_west_x_coor(source_x);
     int west_y = get_west_y_coor(source_y);
 
 
-    if(dimensions)
     if (source_cell != NULL){
-        /// when do i fille the cells x and y position???
 
-        /// don't point to a "new" n_cell, point to the cell that is north of source cell
-        /// that's in the cell_forest array already
 
         /// @note cells that are in corner positions def won't have neighbors in certain directions
         /// so set those empty spots to null
         
-        if(source_cell->x_position == 1 & source_cell->y_position == 1){
-            source_cell->my_neighbors->nw_cell = NULL;
-
-        }
+        if(is_corner_cell(source_x,source_y,dimensions))
 
 
-        //acessing the EightWay struct field of the Cell
         if(source_cell->my_neighbors = NULL){
-            // calculate neighbors based on formula / 8 points around a point in the center
 
 
-            /// @note this is the cell to the north of the source cell ///wow the & operator changed everything
-            source_cell->my_neighbors->n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
+            /// @note this is the cell to the north of the source cell 
+            ///wow the & operator changed everything
+            source_cell->my_neighbors->n_cell = &cell_forest[north_x][north_y];
             /// @note this is the cell to the north east of the source cell
-            source_cell->my_neighbors->ne_cell = &cell_forest[get_north_east_x_coor(source_x)][get_north_east_y_coor(source_y)];
+            source_cell->my_neighbors->ne_cell = &cell_forest[north_east_x][north_east_y];
             /// @note this is the cell to the northwest of the source cell
-            source_cell->my_neighbors->nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north__y_coor(source_y)];
-
-
-            source_cell->my_neighbors->n_cell.y_position = (source_cell->y_position);
-            /// @note this is the cell to the northeast of the source cell
-            source_cell->my_neighbors->ne_cell.x_position = (source_cell->x_position - 1);
-            source_cell->my_neighbors->ne_cell.y_position = (source_cell->y_position+1);
-            
-            source_cell->my_neighbors->nw_cell.x_position = (source_cell->x_position - 1);
-            source_cell->my_neighbors->nw_cell.y_position = (source_cell->y_position - 1);
-
-            /// @note this is the cell to the east of the source cell
-            source_cell->my_neighbors->e_cell.x_position = (source_cell->x_position);
-            source_cell->my_neighbors->e_cell.x_position = (source_cell->y_position +1);
-            /// @note this is the cell to the west of the source cell
-            source_cell->my_neighbors->w_cell.x_position = (source_cell->x_position);
-            source_cell->my_neighbors->w_cell.y_position = (source_cell->y_position - 1);
-
+            source_cell->my_neighbors->nw_cell = &cell_forest[north_west_x][north_west_y];
             /// @note this is the cell to the south of the source cell
-            source_cell->my_neighbors->s_cell.x_position = (source_cell->x_position + 1);
-            source_cell->my_neighbors->s_cell.y_position = (source_cell->y_position);
+            source_cell->my_neighbors->s_cell = &cell_forest[south_x][south_y];
             /// @note this is the cell to the southeast of the source cell
-            source_cell->my_neighbors->se_cell.x_position = (source_cell->x_position + 1);
-            source_cell->my_neighbors->se_cell.y_position = (source_cell->y_position + 1);
-            /// @note this is thecell to the southwest of the s ource cell
-            source_cell->my_neighbors->sw_cell.x_position = (source_cell->x_position + 1);
-            source_cell->my_neighbors->sw_cell.y_position = (source_cell->y_position -1);
+            source_cell->my_neighbors->se_cell = &cell_forest[south_east_x][south_east_y];
+            /// @note this is the cell to the southwest of the source cell
+            source_cell->my_neighbors->sw_cell = &cell_forest[south_west_x][south_west_y];
+            /// @note this is the cell to the east of the source cell
+            source_cell->my_neighbors->e_cell = &cell_forest[east_x][east_y];
+            /// @note this is the cell to the west of the source cell
+            source_cell->my_neighbors->w_cell = &cell_forest[west_x][west_y];
+
+
             /// how do I tell if a cell doesn't have neighbors in a certain direction??
         }
     }
@@ -114,8 +94,8 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     // fill every item of 2d array with a new Cell struct. Set all fields of that struct to zero or NULL;
     for(int i = 0; i < dimensions; i++){
         for(int j = 0; j < dimensions; j++){
-            cell_forest[i][j].x_position = i; // x_position
-            cell_forest[i][j].y_position = j; // y_position
+            cell_forest[i][j].x_position = i; /// x_position
+            cell_forest[i][j].y_position = j; ///y_position
             cell_forest[i][j].current_state = EMPTY; // enum CellState is EMPTY for time being
             cell_forest[i][j].next_state = EMPTY; // next state is EMPTY until the update forest function is called
             cell_forest[i][j].my_neighbors = NULL; // setting all neighbors to zero for the time being

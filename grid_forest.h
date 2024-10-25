@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <strings.h>
+#include <stdbool.h>
 
 #ifndef FOREST_GRID_H
 #define FOREST_GRID_H
@@ -87,6 +88,26 @@ static inline int get_west_y_coor(int source_y){return source_y - 1;}
 
 
 
+/// @brief quick helper function to determine if a cell is located at one of the corners of forest
+/// @param source_x 
+/// @param source_y 
+/// @param dimensions 
+/// @return 
+static inline bool is_corner_cell(int source_x, int source_y, int dimensions){
+    return (source_x == 1 && source_y == 1) || ///< upper left corner
+           (source_x == 1 && source_x == dimensions) || ///< upper right corner
+           (source_x == dimensions && source_y == 1) || ///< bottom left corner
+           (source_x == dimensions && source_y == dimensions); ///< bottom right corner
+}
+/// @brief quick helper function to determine if a cell is located in the outer ring / edge of forest
+/// @param source_x 
+/// @param source_y 
+/// @param dimensions 
+/// @return 
+static inline bool is_outer_cell(int source_x, int source_y, int dimensions){
+    return (source_x == 1) ||
+           ()
+}
 
 
 
