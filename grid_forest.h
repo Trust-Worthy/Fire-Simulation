@@ -34,7 +34,7 @@ typedef struct CellPoint{
     unsigned int y_position;        ///< Y position of cell corresponds to col
     CellState current_state;
     CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
-    EightWay *my_neighbors;
+    EightWay my_neighbors;
 }Cell;
 
 
@@ -96,20 +96,20 @@ static inline int get_west_y_coor(int source_y){return source_y - 1;}
 static inline bool is_corner_cell(int source_x, int source_y, int dimensions){
     return (source_x == 0 && source_y == 0)|| ///< upper left corner
            (source_x == 0 && source_y == dimensions) || ///< upper right corner
-           (source_x == dimensions && source_y == 0) || ///< bottom left corner
-           (source_x == dimensions && source_y == dimensions); ///< bottom right corner
+           (source_x == dimensions-1 && source_y == 0) || ///< bottom left corner
+           (source_x == dimensions-1 && source_y == dimensions-1); ///< bottom right corner
 }
 static inline bool is_upper_left_corner(int source_x, int source_y){
     return (source_x == 0 && source_y == 0);
 }
 static inline bool is_upper_right_corner(int source_x, int source_y,int dimensions){
-    return (source_x == 0 && source_y == dimensions);
+    return (source_x == 0 && source_y == dimensions-1);
 }
 static inline bool is_bottom_left_corner(int source_x, int source_y, int dimensions){
-    return (source_x == dimensions && source_y == 0);
+    return (source_x == dimensions-1 && source_y == 0);
 }
 static inline bool is_bottom_right_corner(int source_x, int source_y, int dimensions){
-    return (source_x == dimensions && source_y == dimensions);
+    return (source_x == dimensions-1 && source_y == dimensions-1);
 }
 /// @brief 
 /// @param cell 
@@ -125,13 +125,13 @@ static inline bool is_in_first_col(int source_y){
     return (source_y == 0);
 }
 static inline bool is_in_last_col(int source_y, int dimensions){
-    return (source_y == dimensions);
+    return (source_y == dimensions-1);
 }
 static inline bool is_in_first_row(int source_x){
     return (source_x == 0);
 }
 static inline bool is_in_last_row(int source_x, int dimensions){
-    return (source_x == dimensions);
+    return (source_x == dimensions-1);
 }
 /// @brief 
 /// @param cell 
