@@ -25,18 +25,7 @@ typedef enum {
 } CellState;
 
 typedef struct EightWay EightWay; // forward declaration so compiler doesn't yell
-
-
-///
-/// @brief this struct defines each individual cells position in the context of the entire grid
-typedef struct CellPoint{
-    unsigned int x_position;        ///< X position of the cell corresponds to row
-    unsigned int y_position;        ///< Y position of cell corresponds to col
-    CellState current_state;
-    CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
-    EightWay my_neighbors;
-}Cell;
-
+typedef struct CellPoint Cell;
 
 ///
 /// @brief struct to model the 8-way connectivity between cells
@@ -50,6 +39,19 @@ typedef struct EightWay{
      Cell *e_cell; // cell that's directly to the right: (row, col + 1)
      Cell *w_cell; // cell that's directly to the left: (row, col - 1)
 }EightWay;
+
+///
+/// @brief this struct defines each individual cells position in the context of the entire grid
+typedef struct CellPoint{
+    unsigned int x_position;        ///< X position of the cell corresponds to row
+    unsigned int y_position;        ///< Y position of cell corresponds to col
+    CellState current_state;
+    CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
+    EightWay my_neighbors;
+}Cell;
+
+
+
 
 
 /// @brief this function fills in all the coordinates values for the neighbors of an individual cell

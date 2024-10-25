@@ -149,11 +149,9 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
     int source_y = source_cell->y_position;
 
     if(source_x < 0 || source_x >= dimensions -1 || source_y < 0 || source_y >= dimensions-1){
-        fprintf(stderr, "Coordinates out of bounds\n");
+        fprintf(stderr,"X coor: %d & Y coor: %d are out of bounds\n",source_x,source_y);
         return; // Exit the function if out of bounds
     }
-    
-    fprintf(stdout,"got to line 168");
 
     /// @note cells that are in corner positions def won't have neighbors in certain directions
     /// so set those empty spots to null
