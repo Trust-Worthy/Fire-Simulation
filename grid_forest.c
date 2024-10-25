@@ -142,11 +142,15 @@ void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
 void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dimensions][dimensions]){
     if(source_cell == NULL){
         fprintf(stderr,"source cell ptr is null\n"); //something is up with the pointer I'm passing in
+        return;
     }
     
     int source_x = source_cell->x_position;
     int source_y = source_cell->y_position;
 
+    if(source_x < 0 || source_x >= dimensions || source_y < 0 || source_y >= dimensions){
+        
+    }
     
     fprintf(stdout,"got to line 168");
 
@@ -154,19 +158,19 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
     /// so set those empty spots to null
         
     if(is_corner_cell(source_x,source_y,dimensions)){
-        void set_corner_cell_neighbors(Cell *source_cell,int dimensions,Cell cell_forest[dimensions][dimensions]);
+        set_corner_cell_neighbors(source_cell,dimensions,cell_forest);
     }else if(is_in_first_col(source_y)){
         /// set neighbors for first col cells
-        void set_first_col_cell_neighbors(Cell *source_cell,int dimensions,Cell cell_forest[dimensions][dimensions]);
+        set_first_col_cell_neighbors(source_cell,dimensions,cell_forest);
     }else if(is_in_first_row(source_x)){
         /// set neighbors for first row neighbors
-        void set_first_row_cell_neighbors(Cell *source_cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
+        set_first_row_cell_neighbors(source_cell,dimensions, cell_forest);
     }else if(is_in_last_col(source_y,dimensions)){
         /// set neighbors for last col cells
-        void set_last_col_cell_neighbors(Cell *source_cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
+        set_last_col_cell_neighbors(source_cell,dimensions, cell_forest);
     }else if(is_in_last_row(source_x,dimensions)){
         /// set neighbors for last row cells
-        void set_first_row_cell_neighbors(Cell *source_cell,int dimensions, Cell cell_forest[dimensions][dimensions]);
+        set_first_row_cell_neighbors(source_cell,dimensions, cell_forest);
     }else{
 
         /// @note this is every other type of cell that isn't either a corner cell
