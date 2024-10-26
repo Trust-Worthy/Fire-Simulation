@@ -183,5 +183,12 @@ void spread_function(int row, int col, float neighbor_proportion, Cell specific_
 /// @brief this function inserts the live and burning trees into the forest
 /// @param dimensions 
 /// @param cell_forest 
-void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
+void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions],float density,float burning_trees);
+
+
+
+
+
+
+
 #endif

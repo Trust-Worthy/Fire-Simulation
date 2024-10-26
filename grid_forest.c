@@ -244,7 +244,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 
 }
 
-void insert_trees_in_forest(int dimensions, Cell *cell_forest[dimensions][dimensions],float density,float burning_trees){
+void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions],float density,float burning_trees){
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
@@ -276,10 +276,10 @@ void insert_trees_in_forest(int dimensions, Cell *cell_forest[dimensions][dimens
 
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
-            (*cell_forest)[x][y].current_state = TREE; // field of Cell struct
+            cell_forest[x][y].current_state = TREE; // field of Cell struct
             --temp_live;
         }else{
-            (*cell_forest)[x][y].current_state =  BURNING; //field of Cell struct
+            cell_forest[x][y].current_state =  BURNING; //field of Cell struct
             }       
     }
 }
@@ -303,7 +303,7 @@ int main(int argc, char *argv[]){
         return EXIT_FAILURE;
     }
     //randomness
-    srand(time(NULL));
+    srand(41); // we were told to use 41 as the seed value
 
 
     // making up values for cmd ln args
