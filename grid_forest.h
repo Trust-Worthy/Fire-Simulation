@@ -181,7 +181,7 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
 /// @param forest_cell is an individual cell. The cell is either empty, live tree, burning tree, or burnt tree
 void spread_function(float neighbor_influence, float prob_tree_catching_fire, Cell *cell);
 
-int calculate_burning_neighbors(Cell cell);
+int calculate_burning_neighbors(Cell *cell);
 
 /// @brief this function inserts the live and burning trees into the forest
 /// @param dimensions 
