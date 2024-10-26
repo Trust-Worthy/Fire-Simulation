@@ -15,6 +15,8 @@
 #ifndef FOREST_GRID_H
 #define FOREST_GRID_H
 
+extern Print_Mode;
+
 ///
 /// @brief an enum to keep track of the state of a cell
 typedef enum {
@@ -160,7 +162,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 
 /// @brief printing out a 2d array that represents the forest
 /// @param forest is a pointer to a pointer to a 2d array
-void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
+void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions],bool Print_Mode);
 
 
 /// @brief update_forest calls the spread function which calculates what cells need to change.

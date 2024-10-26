@@ -9,11 +9,13 @@
 #include <stdbool.h>
 #include "grid_forest.h"
 #include "process_cmdln_args.h"
+#include "display.h"
 
 extern Cycle_Count;
 extern Cumulative_Changes;
 extern Time_Step_Changes;
 extern Fires_Burning;
+extern Print_Mode;
 static float DENSITY = 72.0;
 static float BURN = 23.0;
 
@@ -381,19 +383,34 @@ void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensi
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
-void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
+void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions], bool print_mode) {
     const char *tree_chars[] = {" ", "Y", "*", "." };
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
-            if(Cycle_Count == 0){ // step 0
+
+            if(print_mode){
+                if(Cycle_Count == 0){ // step 0
                 printf("%s ", tree_chars[cell_forest[i][j].current_state]); // on first cycle there is not next_state
-            }else{
+                }else{
                 printf("%s ", tree_chars[cell_forest[i][j].next_state]);
                 ///< change current_state to next state
                 cell_forest[i][j].current_state = cell_forest[i][j].next_state;
+                }
+            }else{
+                clear();
+                if(Cycle_Count == 0){ // step 0
+                    set_cur_pos(i+1,j);
+                    put(tree_chars[cell_forest[i][j].current_state]);
+                                
+                }else{
+                    set_cur_pos(i+1,j);
+                    put(tree_chars[cell_forest[i][j].next_state]);
+                }
             }
+
+            
              
         }
         printf("\n"); // Newline after each row
@@ -423,7 +440,7 @@ void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensio
         }       
     }
     
-    print_forest(dimensions,cell_forest);
+    print_forest(dimensions,cell_forest,Print_Mode);
 }
 
 
