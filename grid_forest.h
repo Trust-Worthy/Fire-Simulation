@@ -15,7 +15,7 @@
 #ifndef FOREST_GRID_H
 #define FOREST_GRID_H
 
-extern Print_Mode;
+extern bool Print_Mode;
 
 ///
 /// @brief an enum to keep track of the state of a cell
@@ -26,7 +26,6 @@ typedef enum {
     BURNED
 } CellState;
 
-typedef struct EightWay EightWay; // forward declaration so compiler doesn't yell
 typedef struct CellPoint Cell;
 
 ///
@@ -162,13 +161,13 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 
 /// @brief printing out a 2d array that represents the forest
 /// @param forest is a pointer to a pointer to a 2d array
-void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions],bool Print_Mode);
+void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr);
 
 
 /// @brief update_forest calls the spread function which calculates what cells need to change.
 /// Then update calls the print_forest function which prints out the new state 
 /// and sets the current state to the new state for the next iteration.
-void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensions][dimensions]);
+void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, float neighbor_influence, float prob_tree_catching_fire, int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr);
 
 /// @brief  The spread function uses eight-way connectivity of neighbors to decide upon a state change for a single tree cell.
 /// The spread function first must check that the proportion of neighbors 

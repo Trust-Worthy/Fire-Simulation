@@ -44,7 +44,7 @@ void print_help_message(){
 
 
 /// @param args pointer to a struct
-static void print_struct(CMD_LN_ARGS *args){
+void print_struct(CMD_LN_ARGS *args){
     
     printf("This is the struct\n");
     printf("-bN: %d\n",args->BN);
@@ -59,7 +59,7 @@ static void print_struct(CMD_LN_ARGS *args){
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
-void process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
+int process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
 
     int opt; //the option returned from getopt()
     int tmpsize = 0; // a temporary variable for type safety purposes
@@ -73,7 +73,7 @@ void process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
             tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 && tmpsize < 10000 ) {
                 cmd_struct->PN = (size_t)tmpsize; // assigning to struct
-                if(cmd_struct > 0){
+                if((cmd_struct->PN) > 0){
                     print_header(cmd_struct->PN);
                 }else{
                     break;

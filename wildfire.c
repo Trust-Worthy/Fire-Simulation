@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "process_cmdln_args.c"
+#include "process_cmdln_args.h"
 #include "grid_forest.h"
 #include "display.h"
 
@@ -10,7 +10,7 @@ static int Cycle_Count = 1;
 static int Cumulative_Changes = 0;
 static int  Time_Step_Changes = 0;
 static bool Fires_Burning = true;
-static bool Print_Mode = false;
+bool Print_Mode = false;
 
 
 /// call update function --> must check current state of neighbors
@@ -19,7 +19,7 @@ static bool Print_Mode = false;
 
 int main(int argc, char * argv[]){
     CMD_LN_ARGS cmd_args = {10,30,50,25,0,10}; // initializing struct to defaul values
-    
+    CMD_LN_ARGS *cmd_args_ptr = &cmd_args;
 
     parse_args(argc, argv, &cmd_args); ///<processes cmd line args and overrides cmd_args struct if necessary
 
@@ -39,18 +39,17 @@ int main(int argc, char * argv[]){
         if(cmd_args.PN > 0){ /// print mode was selected
             Print_Mode = true;
             while(Cycle_Count <= cmd_args.PN){
-                update_forest(neighbor_influence,prob_tree_catching_fire,dimensions,cell_forest);
+                update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
 
                 Fires_Burning = false; /// setting this to false to break me out of outer while loop
                 break; 
                 
             }
         }
-        update_forest(neighbor_influence,prob_tree_catching_fire,dimensions,cell_forest);
+        update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
     }
 
-    myfunt();
 
-
+    cmd_args_ptr = NULL;
 
 } 

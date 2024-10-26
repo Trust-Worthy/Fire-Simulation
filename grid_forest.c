@@ -15,7 +15,7 @@ extern Cycle_Count;
 extern Cumulative_Changes;
 extern Time_Step_Changes;
 extern Fires_Burning;
-extern Print_Mode;
+extern bool Print_Mode;
 static float DENSITY = 72.0;
 static float BURN = 23.0;
 
@@ -74,7 +74,7 @@ void set_corner_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimens
 
     ///update total number of cell neighbors
     
-    cell->total_neighbors +3; 
+    cell->total_neighbors +=3; 
     
 }
 void set_first_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions]){
@@ -94,7 +94,7 @@ void set_first_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dim
         cell->my_neighbors.ne_cell = &cell_forest[get_north_east_x_coor(source_x)][get_north_east_y_coor(source_y)];
 
         ///update number of cell neighbors
-        cell->total_neighbors +5; 
+        cell->total_neighbors +=5; 
 
 }
 void set_last_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
@@ -112,7 +112,7 @@ void set_last_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
         cell->my_neighbors.sw_cell = &cell_forest[get_south_west_x_coor(source_x)][get_south_west_y_coor(source_y)];
         cell->my_neighbors.s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
         ///update number of cell neighbors
-        cell->total_neighbors +5; 
+        cell->total_neighbors +=5; 
 }
 void set_first_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
     int source_x = cell->x_position;
@@ -131,7 +131,7 @@ void set_first_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[di
         cell->my_neighbors.sw_cell = &cell_forest[get_south_west_x_coor(source_x)][get_south_west_y_coor(source_y)];
         cell->my_neighbors.s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
         ///update number of cell neighbors
-        cell->total_neighbors +5; 
+        cell->total_neighbors +=5; 
 }
 void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
     int source_x = cell->x_position;
@@ -150,7 +150,7 @@ void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
         cell->my_neighbors.nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north_west_y_coor(source_y)];
         cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_west_y_coor(source_y)];
         ///update number of cell neighbors
-        cell->total_neighbors +5; 
+        cell->total_neighbors +=5; 
         
 }
 
@@ -219,7 +219,7 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
 }
 int calculate_burning_neighbors(Cell cell){
     if(cell.current_state == EMPTY){/// if this is an empty cell nothing more needs to be done
-        return; 
+        return EXIT_FAILURE; 
     }
     unsigned int burning_neighbors = 0;
     if( cell.my_neighbors.n_cell != NULL){ ///< ensure I'm not dereferencing a null pointer
@@ -383,14 +383,14 @@ void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensi
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
-void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions], bool print_mode) {
+void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr) {
     const char *tree_chars[] = {" ", "Y", "*", "." };
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
 
-            if(print_mode){
+            if(Print_Mode){
                 if(Cycle_Count == 0){ // step 0
                 printf("%s ", tree_chars[cell_forest[i][j].current_state]); // on first cycle there is not next_state
                 }else{
@@ -415,8 +415,8 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions], bool
         }
         printf("\n"); // Newline after each row
     }
-    fprintf(stdout,"size %d, pCatch %f, density %f, pBurning %f, pNeighbor %f\n");
-    fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n");
+    fprintf(stdout,"size %d, pCatch %f, density %f, pBurning %f, pNeighbor %f\n",dimensions,cmd_args_ptr->CN,density,cmd_args_ptr->BN,cmd_args_ptr->NN);
+    fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
 
     if(!Fires_Burning){
         fprintf(stdout,"Fires are out\n");
@@ -428,22 +428,22 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions], bool
 }
 
 
-void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensions][dimensions]){
+void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, float neighbor_influence, float prob_tree_catching_fire, int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
             if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
                 return;
             }else{
-                spread_function(nN,cN,cell_forest[i][j]); ///<identify the specific cell in the 2d array
+                spread_function(neighbor_influence,prob_tree_catching_fire,cell_forest[i][j]); ///<identify the specific cell in the 2d array
             }
             
         }       
     }
     
-    print_forest(dimensions,cell_forest,Print_Mode);
+    print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
 }
 
-
+/*
 static int test_grid_forest(int argc, char *argv[]){
 
     if(argc < 2){
@@ -469,7 +469,8 @@ static int test_grid_forest(int argc, char *argv[]){
     fill_forest(dimension, density, burn_trees, cell_forest); 
 
     // print values of the forest grid / matrix
-    print_forest(dimension, cell_forest,Print_Mode);
+    print_forest(Print_Mode,dimensions, cell_forest,cmd_args_ptr);
     
     return EXIT_SUCCESS;    
 }
+*/
