@@ -469,7 +469,7 @@ static int test_grid_forest(int argc, char *argv[]){
     fill_forest(dimension, density, burn_trees, cell_forest); 
 
     // print values of the forest grid / matrix
-    print_forest(dimension, cell_forest);
+    print_forest(dimension, cell_forest,Print_Mode);
     
     return EXIT_SUCCESS;    
 }
