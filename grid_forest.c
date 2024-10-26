@@ -11,6 +11,9 @@
 #include "process_cmdln_args.h"
 
 extern Cycle_Count;
+extern Cumulative_Changes;
+extern Time_Step_Changes;
+extern Fires_Burning;
 static float DENSITY = 72.0;
 static float BURN = 23.0;
 
@@ -213,6 +216,9 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
 
 }
 int calculate_burning_neighbors(Cell cell){
+    if(cell.current_state == EMPTY){/// if this is an empty cell nothing more needs to be done
+        return; 
+    }
     unsigned int burning_neighbors = 0;
     if( cell.my_neighbors.n_cell != NULL){ ///< ensure I'm not dereferencing a null pointer
         if(cell.my_neighbors.n_cell->current_state == BURNING){
@@ -268,6 +274,8 @@ void spread_function(float nN, float cN, Cell cell){
 
     if(cell.burn_cycle_count == 3){ ///< if a burning tree has gone through 3 cycle
         cell.next_state == BURNED;
+        Cumulative_Changes++;
+        Time_Step_Changes++;
         return;
     }
 
@@ -279,10 +287,13 @@ void spread_function(float nN, float cN, Cell cell){
         if (random_num < cN){
             cell.next_state = BURNING;
             cell.burn_cycle_count = 1;
+            Cumulative_Changes++;
+            Time_Step_Changes++;
         }
     }
 
 }
+
 ///
 /// @param dimensions --> dimensions of the forest as specified by user
 /// @param density --> the percentage of cells of the forest that will be filled with trees
@@ -376,7 +387,7 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
-            if(Cycle_Count == 1){
+            if(Cycle_Count == 0){ // step 0
                 printf("%s ", tree_chars[cell_forest[i][j].current_state]); // on first cycle there is not next_state
             }else{
                 printf("%s ", tree_chars[cell_forest[i][j].next_state]);
@@ -387,8 +398,15 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
         }
         printf("\n"); // Newline after each row
     }
+    fprintf(stdout,"size %d, pCatch %f, density %f, pBurning %f, pNeighbor %f\n");
+    fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n");
+
+    if(!Fires_Burning){
+        fprintf(stdout,"Fires are out\n");
+    }
 
     Cycle_Count++;
+    Time_Step_Changes = 0; // reset time step changes to zero bc the cycle is coming to an end
     
 }
 
@@ -396,7 +414,12 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
 void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensions][dimensions]){
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
-            spread_function(nN,cN,cell_forest[i][j]); ///<identify the specific cell in the 2d array
+            if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
+                return;
+            }else{
+                spread_function(nN,cN,cell_forest[i][j]); ///<identify the specific cell in the 2d array
+            }
+            
         }       
     }
     
@@ -404,7 +427,7 @@ void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensio
 }
 
 
-int main(int argc, char *argv[]){
+static int test_grid_forest(int argc, char *argv[]){
 
     if(argc < 2){
         return EXIT_FAILURE;

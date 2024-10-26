@@ -7,6 +7,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #ifndef PROCESS_CMDLN_ARGS_H
 #define PROCESS_CMDLN_ARGS_H
@@ -43,7 +44,7 @@ void  print_header(int states);
 /// general help message is also printed to stdout
 void print_help_message();
 
-void process_args(int argc, char *argv[]);
+void process_args(int argc, char *argv[],CMD_LN_ARGS *cmd_args);
 
     
 #endif //PROCESS_CMDLN_ARGS_H 

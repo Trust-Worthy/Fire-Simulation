@@ -59,12 +59,11 @@ static void print_struct(CMD_LN_ARGS *args){
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
-void process_args( int argc, char * argv[] ) {
+void process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
 
     int opt; //the option returned from getopt()
     int tmpsize = 0; // a temporary variable for type safety purposes
-    CMD_LN_ARGS cmds_struct = {0}; // struct that holds all cmd ln arg vals
-
+    
     const char *arg_string = "Hb:c:d:n:p:s:"; /// cmd line option requirements 
 
     while ( (opt = getopt( argc, argv, arg_string) ) != -1 ) { // getopt() returns -1 if there are not more options to process 
@@ -73,8 +72,13 @@ void process_args( int argc, char * argv[] ) {
         case 'p':
             tmpsize = (int)strtol( optarg, NULL, BASE_10); // tmp var is used to ensure that the value is not negative
             if ( tmpsize > 0 && tmpsize < 10000 ) {
-                cmds_struct.PN = (size_t)tmpsize; // assigning to struct
-                print_header(cmds_struct.PN);
+                cmd_struct->PN = (size_t)tmpsize; // assigning to struct
+                if(cmd_struct > 0){
+                    print_header(cmd_struct->PN);
+                }else{
+                    break;
+                }
+                
                 // do some other funtions to make the program run
 
             } else {
@@ -92,7 +96,7 @@ void process_args( int argc, char * argv[] ) {
         case 's':
             tmpsize = (int)strtol( optarg, NULL, BASE_10);
             if ( tmpsize >= 5 && tmpsize <= 40) { // min size of grid is 5x5 and max size is 40x40
-                cmds_struct.SN  = (size_t)tmpsize;
+                cmd_struct->SN  = (size_t)tmpsize;
                 break;
             } else {
                 fprintf( stderr, "(-sN)  ) simulation grid size must be an integer in [5...40].\n" );
@@ -103,7 +107,7 @@ void process_args( int argc, char * argv[] ) {
         case 'b': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 && tmpsize < 101){ // 0 < N < 101
-                cmds_struct.BN = (size_t)tmpsize;
+                cmd_struct->BN = (size_t)tmpsize;
             }else { 
                 fprintf(stderr,"(-bN) proportion already burning must be an integer in [1...100].\n");
                 print_help_message();
@@ -113,7 +117,7 @@ void process_args( int argc, char * argv[] ) {
         case 'c':
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 &&  tmpsize < 101){ // 0 < N < 101
-                cmds_struct.CN = (size_t)tmpsize;
+                cmd_struct->CN = (size_t)tmpsize;
             }else { 
                 fprintf(stderr,"(-cN) probability a tree will catch fire must be an integer in [1...100].\n");
                 print_help_message();
@@ -123,7 +127,7 @@ void process_args( int argc, char * argv[] ) {
         case 'd': 
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > 0 &&  tmpsize < 101){ // 0 < N < 101
-                cmds_struct.DN = (size_t)tmpsize;
+                cmd_struct->DN = (size_t)tmpsize;
             }else { 
                 fprintf(stderr,"(-dN) density of trees in the grid must be an integer in [1...100].\n");
                 print_help_message();
@@ -133,7 +137,7 @@ void process_args( int argc, char * argv[] ) {
         case 'n':
             tmpsize = (int)strtol(optarg,NULL,BASE_10);
             if (tmpsize > -1 && tmpsize < 101){ // 0 < N < 101
-                cmds_struct.NN = (size_t)tmpsize;
+                cmd_struct->NN = (size_t)tmpsize;
             }else { 
                 fprintf(stderr, "(-nN) density of trees in the grid must be an integer in [1...100].\n");
                 print_help_message();
@@ -148,14 +152,6 @@ void process_args( int argc, char * argv[] ) {
             break;
         }
     }
-
-    // use cmd ln struct to initialize the simulation
-    
-    // by default the simulation runs in Overlay mode
-
-    ///print_struct(&cmds_struct);
-
-
     
     return EXIT_SUCCESS;
 }
