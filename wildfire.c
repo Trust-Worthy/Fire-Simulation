@@ -4,6 +4,7 @@
 #include "process_cmdln_args.h"
 #include "grid_forest.h"
 #include "display.h"
+#include "globals.h"
 
 
 int Cycle_Count = 1;

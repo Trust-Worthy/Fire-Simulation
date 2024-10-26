@@ -10,12 +10,9 @@
 #include "grid_forest.h"
 ///#include "process_cmdln_args.h"
 #include "display.h"
+#include "globals.h"
 
-extern Cycle_Count;
-extern Cumulative_Changes;
-extern Time_Step_Changes;
-extern Fires_Burning;
-extern bool Print_Mode;
+
 
 /// @brief func sets pointers to potential neighbors to NULL because this cell is in the corner position
 /// @param cell 
