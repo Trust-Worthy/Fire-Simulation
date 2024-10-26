@@ -272,7 +272,7 @@ int calculate_burning_neighbors(Cell cell){
 void spread_function(float nN, float cN, Cell cell){
 
     if(cell.burn_cycle_count == 3){ ///< if a burning tree has gone through 3 cycle
-        cell.next_state == BURNED;
+        cell.next_state = BURNED;
         Cumulative_Changes++;
         Time_Step_Changes++;
         return;
@@ -399,11 +399,11 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
                 clear();
                 if(Cycle_Count == 0){ // step 0
                     set_cur_pos(i+1,j);
-                    put(tree_chars[cell_forest[i][j].current_state]);
+                    put(*tree_chars[cell_forest[i][j].current_state]);
                                 
                 }else{
                     set_cur_pos(i+1,j);
-                    put(tree_chars[cell_forest[i][j].next_state]);
+                    put(*tree_chars[cell_forest[i][j].next_state]);
                 }
             }
 
@@ -412,7 +412,7 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
         }
         printf("\n"); // Newline after each row
     }
-    fprintf(stdout,"size %d, pCatch %f, density %f, pBurning %f, pNeighbor %f\n",dimensions,cmd_args_ptr->CN,density,cmd_args_ptr->BN,cmd_args_ptr->NN);
+    fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,(cmd_args_ptr->CN / 100),density,(cmd_args_ptr->BN / 100),(cmd_args_ptr->NN / 100));
     fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
 
     if(!Fires_Burning){

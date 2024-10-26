@@ -17,6 +17,7 @@
 #define FOREST_GRID_H
 
 extern bool Print_Mode;
+typedef struct CellPoint Cell;
 
 ///
 /// @brief an enum to keep track of the state of a cell
@@ -49,9 +50,10 @@ typedef struct CellPoint{
     unsigned int y_position;        ///< Y position of cell corresponds to col
     CellState current_state;
     CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
-    EightWay my_neighbors;
     unsigned int total_neighbors;
     unsigned int burn_cycle_count;
+    EightWay my_neighbors;
+    
 }Cell;
 
 
