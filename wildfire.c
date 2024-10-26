@@ -35,19 +35,20 @@ int main(int argc, char * argv[]){
     fill_forest(dimensions,density,percent_trees_on_fire,cell_forest);
     insert_trees_in_forest(dimensions,cell_forest,density,percent_trees_on_fire);
 
-    while(Fires_Burning){
+    
+    if(cmd_args.PN > 0){ /// print mode was selected
+        Print_Mode = true;
+        while(Cycle_Count <= cmd_args.PN && Fires_Burning){
+            update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
 
-        if(cmd_args.PN > 0){ /// print mode was selected
-            Print_Mode = true;
-            while(Cycle_Count <= cmd_args.PN){
-                update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
-
-                Fires_Burning = false; /// setting this to false to break me out of outer while loop
-                break; 
-                
-            }
+            Fires_Burning = false; /// setting this to false to break me out of outer while loop
+            break; 
+            
         }
+    }else{
+        while(Fires_Burning){
         update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
+    }
     }
 
 
