@@ -208,6 +208,7 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
 /// @param forest --> 2d array 
 void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions]){
     Cell *cell_ptr = NULL;
+    
     // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
     // fill every item of 2d array with a new Cell struct. Set all fields of that struct to zero or NULL;
     for(int i = 0; i < dimensions; i++){
@@ -236,8 +237,14 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     }
 
     cell_ptr == NULL; // setting pointer back to NULL. Don't want no dangling pointers now
+    
+    
+    /// cell_forest already is pointer
+    insert_trees_in_forest(dimensions,cell_forest,density,burning_trees);
 
+}
 
+void insert_trees_in_forest(int dimensions, Cell *cell_forest[dimensions][dimensions],float density,float burning_trees){
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
     int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
@@ -246,6 +253,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     printf("num_trees: %d\n",num_trees);
     printf("burning trees: %d\n",num_burn_trees);
     printf("living trees: %d\n", live_trees);
+
     //generate random (x,y) pairs to place the live and burning trees
     int used[dimensions][dimensions];
     // Initialize all elements to 0 bc it's a variable length array;
@@ -268,13 +276,12 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 
         //place live_trees in forest until live trees run out  
         if(temp_live > 0){
-            cell_forest[x][y].current_state = TREE; // field of Cell struct
+            (*cell_forest)[x][y].current_state = TREE; // field of Cell struct
             --temp_live;
         }else{
-            cell_forest[x][y].current_state =  BURNING; //field of Cell struct
+            (*cell_forest)[x][y].current_state =  BURNING; //field of Cell struct
             }       
     }
-
 }
 
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.

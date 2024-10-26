@@ -180,4 +180,8 @@ void update_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 void spread_function(int row, int col, float neighbor_proportion, Cell specific_forest_cell[row][col]);
 
 
+/// @brief this function inserts the live and burning trees into the forest
+/// @param dimensions 
+/// @param cell_forest 
+void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 #endif
