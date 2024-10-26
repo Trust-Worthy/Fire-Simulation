@@ -44,7 +44,7 @@ void print_help_message(){
 
 
 /// @param args pointer to a struct
-void print_struct(CMD_LN_ARGS *args){
+static void print_struct(CMD_LN_ARGS *args){
     
     printf("This is the struct\n");
     printf("-bN: %d\n",args->BN);
@@ -59,7 +59,7 @@ void print_struct(CMD_LN_ARGS *args){
 /// @param argc the length of the command line arguments array
 /// @param argv the array of command line argument strings
 
-int main( int argc, char * argv[] ) {
+void process_args( int argc, char * argv[] ) {
 
     int opt; //the option returned from getopt()
     int tmpsize = 0; // a temporary variable for type safety purposes
@@ -153,7 +153,7 @@ int main( int argc, char * argv[] ) {
     
     // by default the simulation runs in Overlay mode
 
-    print_struct(&cmds_struct);
+    ///print_struct(&cmds_struct);
 
 
     

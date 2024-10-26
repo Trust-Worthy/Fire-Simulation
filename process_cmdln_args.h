@@ -43,5 +43,7 @@ void  print_header(int states);
 /// general help message is also printed to stdout
 void print_help_message();
 
+void process_args(int argc, char *argv[]);
+
     
 #endif //PROCESS_CMDLN_ARGS_H 
