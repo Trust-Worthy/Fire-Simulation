@@ -2,12 +2,13 @@
 #include <stdio.h>
 #include "process_cmdln_args.c"
 
+int Cycle_Count = 1;
 
 
 
 
-
-
+/// call update function --> must check current state of neighbors
+/// 
 
 
 

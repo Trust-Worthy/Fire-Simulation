@@ -10,7 +10,7 @@
 #include "grid_forest.h"
 #include "process_cmdln_args.h"
 
-
+extern Cycle_Count;
 static float DENSITY = 72.0;
 static float BURN = 23.0;
 
@@ -23,6 +23,7 @@ void set_corner_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimens
     int source_x = cell->x_position;
     int source_y = cell->y_position;
     if(source_x == 0 && source_y == 0){ ///< upper left corner
+
         cell->my_neighbors.n_cell = NULL;
         cell->my_neighbors.ne_cell = NULL;
         cell->my_neighbors.nw_cell = NULL;
@@ -33,6 +34,7 @@ void set_corner_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimens
         cell->my_neighbors.e_cell = &cell_forest[get_east_x_coor(source_x)][get_east_y_coor(source_y)];
         cell->my_neighbors.se_cell = &cell_forest[get_south_east_x_coor(source_x)][get_south_east_y_coor(source_y)];
         cell->my_neighbors.s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
+        
     }else if(source_x == 0 && source_y == dimensions-1) {///<upper right corer
         cell->my_neighbors.n_cell = NULL;
         cell->my_neighbors.ne_cell = NULL;
@@ -64,7 +66,10 @@ void set_corner_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimens
         cell->my_neighbors.nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north_west_y_coor(source_y)];
         cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_west_y_coor(source_y)];
     }
+
+    ///update total number of cell neighbors
     
+    cell->total_neighbors +3; 
     
 }
 void set_first_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dimensions][dimensions]){
@@ -83,6 +88,9 @@ void set_first_col_cell_neighbors(Cell *cell,int dimensions,Cell cell_forest[dim
         cell->my_neighbors.n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
         cell->my_neighbors.ne_cell = &cell_forest[get_north_east_x_coor(source_x)][get_north_east_y_coor(source_y)];
 
+        ///update number of cell neighbors
+        cell->total_neighbors +5; 
+
 }
 void set_last_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
         int source_x = cell->x_position;
@@ -98,6 +106,8 @@ void set_last_col_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
         cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_west_y_coor(source_y)];
         cell->my_neighbors.sw_cell = &cell_forest[get_south_west_x_coor(source_x)][get_south_west_y_coor(source_y)];
         cell->my_neighbors.s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
+        ///update number of cell neighbors
+        cell->total_neighbors +5; 
 }
 void set_first_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
     int source_x = cell->x_position;
@@ -115,6 +125,8 @@ void set_first_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[di
         cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_west_y_coor(source_y)];
         cell->my_neighbors.sw_cell = &cell_forest[get_south_west_x_coor(source_x)][get_south_west_y_coor(source_y)];
         cell->my_neighbors.s_cell = &cell_forest[get_south_x_coor(source_x)][get_south_y_coor(source_y)];
+        ///update number of cell neighbors
+        cell->total_neighbors +5; 
 }
 void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dimensions][dimensions]){
     int source_x = cell->x_position;
@@ -132,6 +144,8 @@ void set_last_row_cell_neighbors(Cell *cell,int dimensions, Cell cell_forest[dim
         cell->my_neighbors.n_cell = &cell_forest[get_north_x_coor(source_x)][get_north_y_coor(source_y)];
         cell->my_neighbors.nw_cell = &cell_forest[get_north_west_x_coor(source_x)][get_north_west_y_coor(source_y)];
         cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_west_y_coor(source_y)];
+        ///update number of cell neighbors
+        cell->total_neighbors +5; 
         
 }
 
@@ -198,9 +212,77 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
     
 
 }
+int calculate_burning_neighbors(Cell cell){
+    unsigned int burning_neighbors = 0;
+    if( cell.my_neighbors.n_cell != NULL){ ///< ensure I'm not dereferencing a null pointer
+        if(cell.my_neighbors.n_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.ne_cell != NULL){
+        if(cell.my_neighbors.ne_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.nw_cell != NULL){
+        if(cell.my_neighbors.nw_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.s_cell != NULL){
+        if(cell.my_neighbors.s_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    
+    if( cell.my_neighbors.se_cell != NULL){
+        if(cell.my_neighbors.se_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.sw_cell != NULL){
+        if(cell.my_neighbors.sw_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.e_cell != NULL){
+        if(cell.my_neighbors.e_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
+    if( cell.my_neighbors.w_cell != NULL){
+        if(cell.my_neighbors.w_cell->current_state == BURNING){
+            burning_neighbors++;
+        }
+    }
 
 
 
+}
+
+/// @brief 
+/// @param nN (-nN) the proportion of burning neighbors to total neighbors that make the source tree suceptible to burning
+/// @param cell 
+/// @param cN (-cN) probability that a tree will catch fire
+void spread_function(float nN, float cN, Cell cell){
+
+    if(cell.burn_cycle_count == 3){ ///< if a burning tree has gone through 3 cycle
+        cell.next_state == BURNED;
+        return;
+    }
+
+    int burning_neighbors = calculate_burning_neighbors(cell);
+    float prop_burning_neighbor_trees = (burning_neighbors/cell.total_neighbors);
+
+    if(prop_burning_neighbor_trees > nN){ // if prop of burning trees is greater than the value specified
+        double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
+        if (random_num < cN){
+            cell.next_state = BURNING;
+            cell.burn_cycle_count = 1;
+        }
+    }
+
+}
 ///
 /// @param dimensions --> dimensions of the forest as specified by user
 /// @param density --> the percentage of cells of the forest that will be filled with trees
@@ -218,7 +300,8 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
             cell_forest[i][j].y_position = j; ///y_position
             cell_forest[i][j].current_state = EMPTY; // enum CellState is EMPTY for time being
             cell_forest[i][j].next_state = EMPTY; // next state is EMPTY until the update forest function is called
-            
+            cell_forest[i][j].total_neighbors = 0;
+            cell_forest[i][j].burn_cycle_count = 0;
             /// Initialize my_neighbors to NULL for all directions
             cell_forest[i][j].my_neighbors.n_cell = NULL;
             cell_forest[i][j].my_neighbors.ne_cell = NULL;
@@ -292,11 +375,35 @@ void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]) {
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
-            printf("%s ", tree_chars[cell_forest[i][j].current_state]); // current_state field from the Cell struct being used to index tree_chars
+
+            if(Cycle_Count == 1){
+                printf("%s ", tree_chars[cell_forest[i][j].current_state]); // on first cycle there is not next_state
+            }else{
+                printf("%s ", tree_chars[cell_forest[i][j].next_state]);
+                ///< change current_state to next state
+                cell_forest[i][j].current_state = cell_forest[i][j].next_state;
+            }
+             
         }
         printf("\n"); // Newline after each row
     }
+
+    Cycle_Count++;
+    
 }
+
+
+void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensions][dimensions]){
+    for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
+        for(int j = 0; j < dimensions; j++){
+            spread_function(nN,cN,cell_forest[i][j]); ///<identify the specific cell in the 2d array
+        }       
+    }
+    
+    print_forest(dimensions,cell_forest);
+}
+
+
 int main(int argc, char *argv[]){
 
     if(argc < 2){

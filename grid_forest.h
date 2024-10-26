@@ -48,6 +48,8 @@ typedef struct CellPoint{
     CellState current_state;
     CellState next_state; // this is the game changer. It makes it easy to keep the board and datastructure up to date
     EightWay my_neighbors;
+    unsigned int total_neighbors;
+    unsigned int burn_cycle_count;
 }Cell;
 
 
@@ -161,14 +163,10 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
 void print_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 
 
-/// @brief update forest updates the forest based on the current cycle configuration
-/// @param dimensions is the dimensions of the grid as specified by the user 
-/// @param forest is a pointer to a pointer to a 2d array
-/// 
-///
-/// @note the update_forest function will call the spread function to determine what cells need to be updated on each cycle
-///
-void update_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
+/// @brief update_forest calls the spread function which calculates what cells need to change.
+/// Then update calls the print_forest function which prints out the new state 
+/// and sets the current state to the new state for the next iteration.
+void update_forest(float nN, float cN, int dimensions, Cell cell_forest[dimensions][dimensions]);
 
 /// @brief  The spread function uses eight-way connectivity of neighbors to decide upon a state change for a single tree cell.
 /// The spread function first must check that the proportion of neighbors 
@@ -177,8 +175,9 @@ void update_forest(int dimensions, Cell cell_forest[dimensions][dimensions]);
 /// @param neighbor_proportion is the -nN cmd line argument that determines what proportion of neighbors must be burning for 
 /// the current cell to catch fire.
 /// @param forest_cell is an individual cell. The cell is either empty, live tree, burning tree, or burnt tree
-void spread_function(int row, int col, float neighbor_proportion, Cell specific_forest_cell[row][col]);
+void spread_function(float nN, float cN, Cell cell);
 
+int calculate_burning_neighbors(Cell cell);
 
 /// @brief this function inserts the live and burning trees into the forest
 /// @param dimensions 
