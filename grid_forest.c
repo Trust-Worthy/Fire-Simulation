@@ -295,7 +295,7 @@ void spread_function(float nN, float cN, Cell cell){
 /// @param density --> the percentage of cells of the forest that will be filled with trees
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
-void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr){
+void fill_forest(int dimensions, float density, float percent_trees_on_fire, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr){
     Cell *cell_ptr = NULL;
     
     // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
@@ -330,16 +330,15 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     
     
     /// cell_forest already is pointer
-    insert_trees_in_forest(dimensions,cell_forest,density,burning_trees);
-    print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
+    insert_trees_in_forest(density,percent_trees_on_fire,dimensions,cell_forest);
 
 }
 
-void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions],float density,float burning_trees){
+void insert_trees_in_forest(float density,float percent_trees_on_fire, int dimensions, Cell cell_forest[dimensions][dimensions]){
     // caluculations --> floor function to get integer num of trees
     int num_trees = floor(density  * (dimensions * dimensions)) ; // ex: 4x4 matrix means 4**2 --> 16 positions.= 
-    int num_burn_trees = floor(((burning_trees / 100.0) * num_trees)); // of the x% of cells filled with trees,  burn / (divided) density will determine 
-    int live_trees = num_trees - num_burn_trees; 
+    int num_burn_trees = floor(percent_trees_on_fire * num_trees); // of the x% of cells filled with trees,  burn / (divided) density will determine 
+    int live_trees = (int)num_trees - num_burn_trees; 
     
     printf("num_trees: %d\n",num_trees);
     printf("burning trees: %d\n",num_burn_trees);
@@ -379,29 +378,27 @@ void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensi
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
 void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr) {
-    const char *tree_chars[] = {" ", "Y", "*", "." };
+
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
-
-            if(Print_Mode || (Cycle_Count == 0)){
-                printf("%s ", tree_chars[cell_forest[i][j].next_state]);
+            if (Print_Mode)
+            {
+                printf("%s\n", tree_chars[cell_forest[i][j].next_state]);
                 ///< change current_state to next state
                 cell_forest[i][j].current_state = cell_forest[i][j].next_state;
-                
             }else{
                 clear();
                     set_cur_pos(i+1,j);
                     put(*tree_chars[cell_forest[i][j].next_state]);
                 
             }
-
-            
-             
         }
         printf("\n"); // Newline after each row
     }
+        
+    
     fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,(cmd_args_ptr->CN / 100),density,(cmd_args_ptr->BN / 100),(cmd_args_ptr->NN / 100));
     fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
 
@@ -413,11 +410,11 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 }
 
 
-void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, float neighbor_influence, float prob_tree_catching_fire, int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
+void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire, float neighbor_influence,  int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
             if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
-                return;
+                continue;
             }else{
                 spread_function(neighbor_influence,prob_tree_catching_fire,cell_forest[i][j]); ///<identify the specific cell in the 2d array
             }

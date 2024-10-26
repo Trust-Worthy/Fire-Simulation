@@ -186,7 +186,7 @@ int calculate_burning_neighbors(Cell cell);
 /// @brief this function inserts the live and burning trees into the forest
 /// @param dimensions 
 /// @param cell_forest 
-void insert_trees_in_forest(int dimensions, Cell cell_forest[dimensions][dimensions],float density,float burning_trees);
+void insert_trees_in_forest(float density,float percent_trees_on_fire, int dimensions, Cell cell_forest[dimensions][dimensions]);
 
 int test_grid_forest(int argc, char*argv[]);
 
