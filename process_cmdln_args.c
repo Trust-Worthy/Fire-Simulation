@@ -61,12 +61,6 @@ void print_struct(CMD_LN_ARGS *args){
 
 int process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
 
-
-    if(argc < 2){
-        fprintf(stderr,"Please enter at least one cmd line argument\n");
-        print_help_message();
-        return 0;
-    }
     int opt; //the option returned from getopt()
     int tmpsize = 0; // a temporary variable for type safety purposes
     

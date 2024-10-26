@@ -295,7 +295,7 @@ void spread_function(float nN, float cN, Cell cell){
 /// @param density --> the percentage of cells of the forest that will be filled with trees
 /// @param burning_trees --> the percentage of the existing trees in the forest that are burning
 /// @param forest --> 2d array 
-void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions]){
+void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr){
     Cell *cell_ptr = NULL;
     
     // change of plan: Cell forest[dimension][dimension] --> a 2d array of Cell Structs
@@ -331,6 +331,7 @@ void fill_forest(int dimensions, float density, float burning_trees, Cell cell_f
     
     /// cell_forest already is pointer
     insert_trees_in_forest(dimensions,cell_forest,density,burning_trees);
+    print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
 
 }
 
@@ -384,24 +385,16 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
 
-            if(Print_Mode){
-                if(Cycle_Count == 0){ // step 0
-                printf("%s ", tree_chars[cell_forest[i][j].current_state]); // on first cycle there is not next_state
-                }else{
+            if(Print_Mode || (Cycle_Count == 0)){
                 printf("%s ", tree_chars[cell_forest[i][j].next_state]);
                 ///< change current_state to next state
                 cell_forest[i][j].current_state = cell_forest[i][j].next_state;
-                }
+                
             }else{
                 clear();
-                if(Cycle_Count == 0){ // step 0
-                    set_cur_pos(i+1,j);
-                    put(*tree_chars[cell_forest[i][j].current_state]);
-                                
-                }else{
                     set_cur_pos(i+1,j);
                     put(*tree_chars[cell_forest[i][j].next_state]);
-                }
+                
             }
 
             
@@ -415,9 +408,7 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
     if(!Fires_Burning){
         fprintf(stdout,"Fires are out\n");
     }
-
-    Cycle_Count++;
-    Time_Step_Changes = 0; // reset time step changes to zero bc the cycle is coming to an end
+     
     
 }
 
@@ -435,6 +426,9 @@ void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, f
     }
     
     print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
+    
+    Cycle_Count++; //
+    Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end
 }
 
 /*

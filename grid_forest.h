@@ -160,7 +160,7 @@ void set_outer_cell_neighbors(Cell *cell,int source_x,int source_y);
 /// density - burning is the number of live trees
 /// lastly, the # of cells in the forest (dimensions (row times col)) - density is the number of non-trees
 /// @note fill_forest only has to be called once every time the program runs
-void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions]);
+void fill_forest(int dimensions, float density, float burning_trees, Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr);
 
 /// @brief printing out a 2d array that represents the forest
 /// @param forest is a pointer to a pointer to a 2d array
@@ -170,7 +170,7 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 /// @brief update_forest calls the spread function which calculates what cells need to change.
 /// Then update calls the print_forest function which prints out the new state 
 /// and sets the current state to the new state for the next iteration.
-void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, float neighbor_influence, float prob_tree_catching_fire, int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr);
+void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire, float neighbor_influence, int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr);
 
 /// @brief  The spread function uses eight-way connectivity of neighbors to decide upon a state change for a single tree cell.
 /// The spread function first must check that the proportion of neighbors 
@@ -179,7 +179,7 @@ void update_forest(bool Print_Mode, float density,float percent_trees_on_fire, f
 /// @param neighbor_proportion is the -nN cmd line argument that determines what proportion of neighbors must be burning for 
 /// the current cell to catch fire.
 /// @param forest_cell is an individual cell. The cell is either empty, live tree, burning tree, or burnt tree
-void spread_function(float nN, float cN, Cell cell);
+void spread_function(float neighbor_influence, float pro_tree_catching_fire, Cell cell);
 
 int calculate_burning_neighbors(Cell cell);
 

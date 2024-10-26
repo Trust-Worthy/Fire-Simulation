@@ -21,12 +21,12 @@
 // -sN # simulation grid size. 4 < N < 41.
 
 typedef struct {
-     int BN;
-     int CN;// all of these values are taken as integers from the user.
-     int DN;
-     int NN;
-     int PN;
-     int SN;
+     int BN; ///< -bN # proportion that a tree is already burning. 0 < N < 101.
+     int CN; ///< -cN # probability that a tree will catch fire. 0 < N < 101.
+     int DN; ///< -dN # density: the proportion of trees in the grid. 0 < N < 101.
+     int NN; ///< -nN # proportion of neighbors that influence a tree catching fire. -1 < N < 101.
+     int PN; ///< -pN # number of states to print before quitting. -1 < N < ...
+     int SN; ///< -sN # simulation grid size. 4 < N < 41.
 } CMD_LN_ARGS;
 
 /// function: print_struct prints out all the values of the struct
@@ -47,4 +47,4 @@ void print_help_message();
 int process_args(int argc, char *argv[],CMD_LN_ARGS *cmd_args);
 
     
-#endif //PROCESS_CMDLN_ARGS_H 
+#endif //PROCESS_CMDLN_ARGS_H
