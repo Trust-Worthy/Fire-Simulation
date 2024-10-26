@@ -6,10 +6,10 @@
 #include "display.h"
 
 
-static int Cycle_Count = 1;
-static int Cumulative_Changes = 0;
-static int  Time_Step_Changes = 0;
-static bool Fires_Burning = true;
+int Cycle_Count = 1;
+int Cumulative_Changes = 0;
+int  Time_Step_Changes = 0;
+bool Fires_Burning = true;
 bool Print_Mode = false;
 
 
@@ -21,7 +21,7 @@ int main(int argc, char * argv[]){
     CMD_LN_ARGS cmd_args = {10,30,50,25,0,10}; // initializing struct to defaul values
     CMD_LN_ARGS *cmd_args_ptr = &cmd_args;
 
-    parse_args(argc, argv, &cmd_args); ///<processes cmd line args and overrides cmd_args struct if necessary
+    process_args(argc, argv, &cmd_args); ///<processes cmd line args and overrides cmd_args struct if necessary
 
     float density = (cmd_args.DN / 100);
     float percent_trees_on_fire = (cmd_args.BN / 100);

@@ -11,6 +11,7 @@
 #include <math.h>
 #include <strings.h>
 #include <stdbool.h>
+#include "process_cmdln_args.h"
 
 #ifndef FOREST_GRID_H
 #define FOREST_GRID_H
@@ -26,7 +27,7 @@ typedef enum {
     BURNED
 } CellState;
 
-typedef struct CellPoint Cell;
+///typedef struct CellPoint Cell;
 
 ///
 /// @brief struct to model the 8-way connectivity between cells

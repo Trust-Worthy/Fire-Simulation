@@ -8,7 +8,7 @@
 #include <time.h>
 #include <stdbool.h>
 #include "grid_forest.h"
-#include "process_cmdln_args.h"
+///#include "process_cmdln_args.h"
 #include "display.h"
 
 extern Cycle_Count;
@@ -16,9 +16,6 @@ extern Cumulative_Changes;
 extern Time_Step_Changes;
 extern Fires_Burning;
 extern bool Print_Mode;
-static float DENSITY = 72.0;
-static float BURN = 23.0;
-
 
 /// @brief func sets pointers to potential neighbors to NULL because this cell is in the corner position
 /// @param cell 
@@ -264,7 +261,7 @@ int calculate_burning_neighbors(Cell cell){
         }
     }
 
-
+    return EXIT_SUCCESS;
 
 }
 
