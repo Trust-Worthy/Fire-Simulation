@@ -17,7 +17,7 @@
 #define FOREST_GRID_H
 
 extern bool Print_Mode;
-typedef struct CellPoint;
+typedef struct CellPoint Cell;
 
 ///
 /// @brief an enum to keep track of the state of a cell

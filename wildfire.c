@@ -22,7 +22,11 @@ int main(int argc, char * argv[]){
     CMD_LN_ARGS cmd_args = {10,30,50,25,0,10}; // initializing struct to defaul values
     CMD_LN_ARGS *cmd_args_ptr = &cmd_args;
 
-    process_args(argc, argv, &cmd_args); ///<processes cmd line args and overrides cmd_args struct if necessary
+    if(!(process_args(argc, argv, &cmd_args))){
+        return EXIT_FAILURE;
+    } ///<processes cmd line args and overrides cmd_args struct if necessary
+
+
 
     float density = (cmd_args.DN / 100);
     float percent_trees_on_fire = (cmd_args.BN / 100);
@@ -45,13 +49,16 @@ int main(int argc, char * argv[]){
             break; 
             
         }
+        
     }else{
         while(Fires_Burning){
         update_forest(Print_Mode, density,percent_trees_on_fire, neighbor_influence, prob_tree_catching_fire, dimensions, cell_forest,cmd_args_ptr);
-    }
+        }
     }
 
 
     cmd_args_ptr = NULL;
+
+    
 
 } 
