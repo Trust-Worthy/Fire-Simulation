@@ -33,7 +33,6 @@ int main(int argc, char * argv[]){
     int dimensions = cmd_args.SN;
     Cell cell_forest[dimensions][dimensions];
 
-    printf("dins %d\n ",dimensions);
     fill_forest(dimensions,density,percent_trees_on_fire,cell_forest,cmd_args_ptr); /// will fill the forest will cells and insert trees
     for(int i = 0; i<dimensions; i++){
             for(int j = 0; j<dimensions;j++){
@@ -41,22 +40,27 @@ int main(int argc, char * argv[]){
             }
             printf("\n");
         }
-    
-    // if(cmd_args.PN > 0){ /// print mode was selected
-    //     Print_Mode = true;
-    //     while(Cycle_Count <= cmd_args.PN && Fires_Burning){
-    //         update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
-
-    //         Fires_Burning = false; /// setting this to false to break me out of outer while loop
-    //         break; 
-            
-    //     }
+    ///usleep(1000000);
         
-    // }else{
-    //     while(Fires_Burning){
-    //     update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
-    //     }
-    // }
+    
+    if(cmd_args.PN > 0){ /// print mode was selected
+        Print_Mode = true;
+        while(Cycle_Count <= cmd_args.PN && Fires_Burning){
+            update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
+
+            Fires_Burning = false; /// setting this to false to break me out of outer while loop
+            break; 
+            ///usleep(750000);
+        }
+        
+    }else{
+        while(Fires_Burning){
+        update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
+        ///usleep(750000);
+        }
+    }
+
+    
     
 
     cmd_args_ptr = NULL;

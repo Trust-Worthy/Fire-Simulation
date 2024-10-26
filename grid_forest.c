@@ -204,7 +204,8 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
         source_cell->my_neighbors.e_cell = &cell_forest[get_east_x_coor(source_x)][get_east_y_coor(source_y)];
         /// @note this is the cell to the west of the source cell
         source_cell->my_neighbors.w_cell = &cell_forest[get_west_x_coor(source_x)][get_south_y_coor(source_y)];
-
+        
+        source_cell->total_neighbors+=8;
 
         /// how do I tell if a cell doesn't have neighbors in a certain direction??
     }
@@ -266,7 +267,7 @@ int calculate_burning_neighbors(Cell cell){
 /// @param nN (-nN) the proportion of burning neighbors to total neighbors that make the source tree suceptible to burning
 /// @param cell 
 /// @param cN (-cN) probability that a tree will catch fire
-void spread_function(float nN, float cN, Cell cell){
+void spread_function(float neighbor_influence, float prob_tree_catching_fire, Cell cell){
 
     if(cell.burn_cycle_count == 3){ ///< if a burning tree has gone through 3 cycle
         cell.next_state = BURNED;
@@ -278,9 +279,9 @@ void spread_function(float nN, float cN, Cell cell){
     int burning_neighbors = calculate_burning_neighbors(cell);
     float prop_burning_neighbor_trees = (burning_neighbors/cell.total_neighbors);
 
-    if(prop_burning_neighbor_trees > nN){ // if prop of burning trees is greater than the value specified
+    if(prop_burning_neighbor_trees > neighbor_influence){ // if prop of burning trees is greater than the value specified
         double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
-        if (random_num < cN){
+        if (random_num < prob_tree_catching_fire){
             cell.next_state = BURNING;
             cell.burn_cycle_count = 1;
             Cumulative_Changes++;
@@ -340,9 +341,9 @@ void insert_trees_in_forest(float density,float percent_trees_on_fire, int dimen
     int num_burn_trees = floor(percent_trees_on_fire * num_trees); // of the x% of cells filled with trees,  burn / (divided) density will determine 
     int live_trees = (int)num_trees - num_burn_trees; 
     
-    printf("num_trees: %d\n",num_trees);
-    printf("burning trees: %d\n",num_burn_trees);
-    printf("living trees: %d\n", live_trees);
+    // printf("num_trees: %d\n",num_trees);
+    // printf("burning trees: %d\n",num_burn_trees);
+    // printf("living trees: %d\n", live_trees);
 
     //generate random (x,y) pairs to place the live and burning trees
     int used[dimensions][dimensions];

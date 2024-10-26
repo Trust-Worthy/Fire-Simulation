@@ -179,7 +179,7 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
 /// @param neighbor_proportion is the -nN cmd line argument that determines what proportion of neighbors must be burning for 
 /// the current cell to catch fire.
 /// @param forest_cell is an individual cell. The cell is either empty, live tree, burning tree, or burnt tree
-void spread_function(float neighbor_influence, float pro_tree_catching_fire, Cell cell);
+void spread_function(float neighbor_influence, float prob_tree_catching_fire, Cell cell);
 
 int calculate_burning_neighbors(Cell cell);
 
