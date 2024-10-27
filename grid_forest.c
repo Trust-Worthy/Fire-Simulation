@@ -476,6 +476,10 @@ void print_stats(int dimensions,float prob_tree_catching_fire,int density,int pe
     
     fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,prob_tree_catching_fire,density,percent_trees_on_fire,neighbor_influence);
     fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
+
+    if(Num_Fires == 0){
+        fprintf(stdout, "Fires are out.");
+    }
 }
 
 /*
