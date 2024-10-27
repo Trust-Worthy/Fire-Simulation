@@ -183,6 +183,11 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
 
 int calculate_burning_neighbors(Cell *cell);
 
+/// @brief 
+/// @param cell 
+void change_cell_state(Cell *cell);
+
+
 /// @brief this function inserts the live and burning trees into the forest
 /// @param dimensions 
 /// @param cell_forest 

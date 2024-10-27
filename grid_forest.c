@@ -268,22 +268,15 @@ int calculate_burning_neighbors(Cell *cell){
 /// @param cell 
 /// @param cN (-cN) probability that a tree will catch fire
 void spread_function(float neighbor_influence, float prob_tree_catching_fire, Cell *cell){
-
-    switch (cell->burn_cycle_count){
-        case 3:
-            cell->next_state = BURNED;
-            Cumulative_Changes++;
-            Time_Step_Changes++;
-            return;
+    switch (cell->current_state){
+        case EMPTY:
             break;
-        
-        case 0:
-           
+        case TREE:
             int burning_neighbors =  calculate_burning_neighbors(cell);
             float proportion_burning_neighbor_trees = ((float)burning_neighbors/(float)cell->total_neighbors);
-            
             if(proportion_burning_neighbor_trees > neighbor_influence){ // if prop of burning trees is greater than the value specified
-            double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
+                
+                double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
                 if (random_num < prob_tree_catching_fire){
                     cell->next_state = BURNING;
                     cell->burn_cycle_count = 1;
@@ -291,13 +284,27 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
                     Time_Step_Changes++;
                 }
             }
-
             break;
-
+        case BURNING:
+            switch (cell->burn_cycle_count){
+                case 3:
+                    cell->next_state = BURNED;
+                    Cumulative_Changes++;
+                    Time_Step_Changes++;
+                    return;
+                    break;
+                
+                default:
+                    cell->burn_cycle_count++;
+                    break;
+            }
+        case BURNED:
+            break;
         default:
-            cell->burn_cycle_count++;
+            fprintf(stderr,"cell doesn't have a valid state\n");
             break;
     }
+    
 
 
     
@@ -390,6 +397,12 @@ void insert_trees_in_forest(float density,float percent_trees_on_fire, int dimen
     }
 }
 
+/// @brief changes the state of the cell making the changed state the new current state
+/// @param cell 
+void change_cell_state(Cell *cell){
+    cell->current_state = cell->next_state;
+}
+
 /// @brief print_forest prints out the forest to the terminal. It converts the enum values to chars.
 /// @param dimensions the dimensions of the forest
 /// @param forest the 2d forest array
@@ -403,11 +416,15 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
             {
                 printf("%s\n", tree_chars[cell_forest[i][j].next_state]);
                 ///< change current_state to next state
-                cell_forest[i][j].current_state = cell_forest[i][j].next_state;
+                
+                change_cell_state(&cell_forest[i][j]);
             }else{
+                ///printf("Cell [%d][%d]: %d\n", i, j, cell_forest[i][j].current_state);
                 clear();
                     set_cur_pos(i+1,j);
-                    put(*tree_chars[cell_forest[i][j].next_state]);
+                    char char_tree = tree_chars[cell_forest[i][j].next_state];
+                    put(char_tree);
+                    change_cell_state(&cell_forest[i][j]);
                 
             }
         }
@@ -438,7 +455,7 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
         }       
     }
     
-    print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
+    print_forest(density, Print_Mode,dimensions, &cell_forest,cmd_args_ptr);
     
     Cycle_Count++; //
     Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end
