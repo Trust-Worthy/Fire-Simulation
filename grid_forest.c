@@ -281,6 +281,7 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
                     cell->burn_cycle_count = 1;
                     Cumulative_Changes+=1;
                     Time_Step_Changes+=1;
+                    Num_Fires+=1;
                 }
             }
             break;
@@ -290,7 +291,7 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
                     cell->next_state = BURNED; ///
                     Cumulative_Changes+=1;
                     Time_Step_Changes+=1;
-                    return;
+                    Num_Fires-=1; // a fire is no longer burning
                     break;
                 
                 default:
@@ -407,7 +408,6 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
             ///printf("%s", tree_chars[cell_forest[i][j].current_state]);
             if (Print_Mode){
                 printf("%s", tree_chars[cell_forest[i][j].current_state]);
-                ///< change current_state to next state
                 
                 
             }else{
@@ -449,26 +449,25 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 
 void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire, float neighbor_influence,  int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
     print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
-    int num_fires = 0;
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
-
-            switch(cell_forest[i][j].current_state){
-                case BURNING:
-                    ++num_fires;
-                    break;
-                case TREE:
-                    spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
-                    break;  
-                case EMPTY:
-                default:
-                    break;     
-            }
+            spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
+            // switch(cell_forest[i][j].current_state){
+            //     case BURNING:
+            //         ++num_fires;
+            //         break;
+            //     case TREE:
+            //         spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
+            //         break;  
+            //     case EMPTY:
+            //     default:
+            //         break;     
+            // }
             
             
         }       
     }
-    if(num_fires == 0){
+    if(Num_Fires == 0){
         Fires_Burning = false;
     }
     for(int i = 0; i<dimensions; i++){
@@ -476,7 +475,7 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
             if(cell_forest[i][j].next_state != EMPTY){
             change_cell_state(&cell_forest[i][j]);  
             }
-                
+                    
         }
         
     }
