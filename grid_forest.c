@@ -273,13 +273,11 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
         case TREE:
             int burning_neighbors =  calculate_burning_neighbors(cell);
             float proportion_burning_neighbor_trees = ((float)burning_neighbors/(float)cell->total_neighbors);
-            if(proportion_burning_neighbor_trees > neighbor_influence){ // if prop of burning trees is greater than the value specified
-                printf("first if");
+            if(proportion_burning_neighbor_trees >= neighbor_influence){ // if prop of burning trees is greater than the value specified
                 double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
                 
                 if (random_num < prob_tree_catching_fire){
                     cell->next_state = BURNING;///
-                    printf("tree --> burning");
                     cell->burn_cycle_count = 1;
                     Cumulative_Changes+=1;
                     Time_Step_Changes+=1;

@@ -42,7 +42,7 @@ err.*
 *.pyc
 *.s
 *.i
-*[!/.]*   # Ignore files without a dot in their names (no extensions)
+
 process_cmdln_args
 # Packages and archives
 #
