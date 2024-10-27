@@ -55,30 +55,42 @@ int main(int argc, char * argv[]){
     printf("dimensions: %d\n",dimensions);
     printf("\n");
     fill_forest(dimensions,density,percent_trees_on_fire,cell_forest,cmd_args_ptr); /// will fill the forest will cells and insert trees
-    printf("ROUND 0\n");
-    for(int i = 0; i<dimensions; i++){
-            for(int j = 0; j<dimensions;j++){
-                printf("%s", tree_chars[cell_forest[i][j].current_state]);
+    
+    
+    for(int z  = 0; z<5;z++){
+        printf("ROUND %d\n",z);
+        for(int i = 0; i<dimensions; i++){
+                for(int j = 0; j<dimensions;j++){
+                    printf("%s", tree_chars[cell_forest[i][j].current_state]);
+                    
+                        
+                }
+                printf("\n");
+                
             }
-            printf("\n");
+        ///print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
+        for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
+            for(int j = 0; j < dimensions; j++){
+                if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
+                    continue;
+                }else{
+                    spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
+                }
+                
+            }       
         }
-    for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
-        for(int j = 0; j < dimensions; j++){
-            if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
-                continue;
-            }else{
-                spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
+        for(int i = 0; i<dimensions; i++){
+                for(int j = 0; j<dimensions;j++){
+                    if(cell_forest[i][j].next_state != EMPTY){
+                    change_cell_state(&cell_forest[i][j]);  
+                }
+                        
+                }
+                
             }
-            
-        }       
     }
-    printf("ROUND 1\n");
-    for(int i = 0; i<dimensions; i++){
-            for(int j = 0; j<dimensions;j++){
-                printf("%s", tree_chars[cell_forest[i][j].current_state]);
-            }
-            printf("\n");
-        }
+    
+    
     
     
     

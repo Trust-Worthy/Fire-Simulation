@@ -213,49 +213,47 @@ void add_cell_neighbors(int dimensions, Cell *source_cell, Cell cell_forest[dime
 
 }
 int calculate_burning_neighbors(Cell *cell){
-    if(cell->current_state == EMPTY){/// if this is an empty cell nothing more needs to be done
-        return EXIT_FAILURE; 
-    }
     unsigned int burning_neighbors = 0;
-    if( cell->my_neighbors.n_cell != NULL){ ///< ensure I'm not dereferencing a null pointer
+
+    if(cell->my_neighbors.n_cell != NULL){ ///< ensure I'm not dereferencing a null pointer
         if(cell->my_neighbors.n_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     if( cell->my_neighbors.ne_cell != NULL){
         if(cell->my_neighbors.ne_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     if( cell->my_neighbors.nw_cell != NULL){
         if(cell->my_neighbors.nw_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     if( cell->my_neighbors.s_cell != NULL){
         if(cell->my_neighbors.s_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     
     if( cell->my_neighbors.se_cell != NULL){
         if(cell->my_neighbors.se_cell->current_state == BURNING){
-            burning_neighbors++;
-        }
+            burning_neighbors+=1;
+        }   
     }
     if( cell->my_neighbors.sw_cell != NULL){
         if(cell->my_neighbors.sw_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     if( cell->my_neighbors.e_cell != NULL){
         if(cell->my_neighbors.e_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
     if( cell->my_neighbors.w_cell != NULL){
         if(cell->my_neighbors.w_cell->current_state == BURNING){
-            burning_neighbors++;
+            burning_neighbors+=1;
         }
     }
 
@@ -269,48 +267,46 @@ int calculate_burning_neighbors(Cell *cell){
 /// @param cN (-cN) probability that a tree will catch fire
 void spread_function(float neighbor_influence, float prob_tree_catching_fire, Cell *cell){
     switch (cell->current_state){
+        
         case EMPTY:
             break;
         case TREE:
             int burning_neighbors =  calculate_burning_neighbors(cell);
             float proportion_burning_neighbor_trees = ((float)burning_neighbors/(float)cell->total_neighbors);
             if(proportion_burning_neighbor_trees > neighbor_influence){ // if prop of burning trees is greater than the value specified
-                
+                printf("first if");
                 double random_num = (double)rand() / (double)RAND_MAX; ///< generate a floating point num between 0.0 and 1.0
+                
                 if (random_num < prob_tree_catching_fire){
-                    cell->next_state = BURNING;
+                    cell->next_state = BURNING;///
+                    printf("tree --> burning");
                     cell->burn_cycle_count = 1;
-                    Cumulative_Changes++;
-                    Time_Step_Changes++;
+                    Cumulative_Changes+=1;
+                    Time_Step_Changes+=1;
                 }
             }
             break;
         case BURNING:
             switch (cell->burn_cycle_count){
                 case 3:
-                    cell->next_state = BURNED;
-                    Cumulative_Changes++;
-                    Time_Step_Changes++;
+                    cell->next_state = BURNED; ///
+                    Cumulative_Changes+=1;
+                    Time_Step_Changes+=1;
                     return;
                     break;
                 
                 default:
-                    cell->burn_cycle_count++;
+                    cell->burn_cycle_count+=1;
                     break;
             }
+            break;
+
         case BURNED:
             break;
         default:
             fprintf(stderr,"cell doesn't have a valid state\n");
             break;
     }
-    
-
-
-    
-
-    
-
 }
 
 ///
@@ -408,16 +404,18 @@ void change_cell_state(Cell *cell){
 /// @param forest the 2d forest array
 void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_forest[dimensions][dimensions],CMD_LN_ARGS *cmd_args_ptr) {
 
-
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
 
             if (Print_Mode)
             {
-                printf("%s\n", tree_chars[cell_forest[i][j].next_state]);
+                if(cell_forest[i][j].next_state != EMPTY){
+                    change_cell_state(&cell_forest[i][j]);  
+                }
+                printf("%s\n", tree_chars[cell_forest[i][j].current_state]);
                 ///< change current_state to next state
                 
-                change_cell_state(&cell_forest[i][j]);
+                
             }else{
                 ///printf("Cell [%d][%d]: %d\n", i, j, cell_forest[i][j].current_state);
                 clear();
@@ -457,7 +455,7 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
     
     print_forest(density, Print_Mode,dimensions, &cell_forest,cmd_args_ptr);
     
-    Cycle_Count++; //
+    Cycle_Count+=1; //
     Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end
 }
 
