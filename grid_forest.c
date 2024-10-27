@@ -404,13 +404,9 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 
     for (int i = 0; i < dimensions; i++) { // Print every row
         for (int j = 0; j < dimensions; j++) { // Print each cell in the row
-
-            if (Print_Mode)
-            {
-                if(cell_forest[i][j].next_state != EMPTY){
-                    change_cell_state(&cell_forest[i][j]);  
-                }
-                printf("%s\n", tree_chars[cell_forest[i][j].current_state]);
+            ///printf("%s", tree_chars[cell_forest[i][j].current_state]);
+            if (Print_Mode){
+                printf("%s", tree_chars[cell_forest[i][j].current_state]);
                 ///< change current_state to next state
                 
                 
@@ -420,7 +416,6 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
                     set_cur_pos(i+1,j);
                     char char_tree = tree_chars[cell_forest[i][j].next_state];
                     put(char_tree);
-                    change_cell_state(&cell_forest[i][j]);
                 
             }
         }
@@ -440,6 +435,8 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 
 
 void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire, float neighbor_influence,  int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
+    print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
+
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
             if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
@@ -450,8 +447,16 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
             
         }       
     }
+    for(int i = 0; i<dimensions; i++){
+        for(int j = 0; j<dimensions;j++){
+            if(cell_forest[i][j].next_state != EMPTY){
+            change_cell_state(&cell_forest[i][j]);  
+            }
+                
+        }
+        
+    }
     
-    print_forest(density, Print_Mode,dimensions, &cell_forest,cmd_args_ptr);
     
     Cycle_Count+=1; //
     Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end

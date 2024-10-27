@@ -58,36 +58,38 @@ int main(int argc, char * argv[]){
     
     
     for(int z  = 0; z<5;z++){
-        printf("ROUND %d\n",z);
-        for(int i = 0; i<dimensions; i++){
-                for(int j = 0; j<dimensions;j++){
-                    printf("%s", tree_chars[cell_forest[i][j].current_state]);
+        printf("ROUND: %d\n",Cycle_Count);
+        update_forest(Print_Mode,density,prob_tree_catching_fire,neighbor_influence,dimensions,cell_forest,cmd_args_ptr);
+        //printf("ROUND %d\n",z);
+        // for(int i = 0; i<dimensions; i++){
+        //         for(int j = 0; j<dimensions;j++){
+        //             printf("%s", tree_chars[cell_forest[i][j].current_state]);
                     
                         
-                }
-                printf("\n");
+        //         }
+        //         printf("\n");
                 
-            }
-        ///print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
-        for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
-            for(int j = 0; j < dimensions; j++){
-                if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
-                    continue;
-                }else{
-                    spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
-                }
+        //     }
+        // print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
+        // for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
+        //     for(int j = 0; j < dimensions; j++){
+        //         if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
+        //             continue;
+        //         }else{
+        //             spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
+        //         }
                 
-            }       
-        }
-        for(int i = 0; i<dimensions; i++){
-                for(int j = 0; j<dimensions;j++){
-                    if(cell_forest[i][j].next_state != EMPTY){
-                    change_cell_state(&cell_forest[i][j]);  
-                }
+        //     }       
+        // }
+        // for(int i = 0; i<dimensions; i++){
+        //         for(int j = 0; j<dimensions;j++){
+        //             if(cell_forest[i][j].next_state != EMPTY){
+        //             change_cell_state(&cell_forest[i][j]);  
+        //         }
                         
-                }
+        //         }
                 
-            }
+        //     }
     }
     
     

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <getopt.h>  // processing for "-fN" command line args
 #include "process_cmdln_args.h" // processing specific flags once they are parsed
-
+#include "globals.h"
 #define BASE_10 10 // will be used for converting string to integers in base 10
 
 // @param states -- the number of times the simulation will run and print out the board 
@@ -75,6 +75,7 @@ int process_args( int argc, char * argv[], CMD_LN_ARGS *cmd_struct) {
                 cmd_struct->PN = (size_t)tmpsize; // assigning to struct
                 if((cmd_struct->PN) > 0){
                     print_header(cmd_struct->PN);
+                    Print_Mode = true;
                 }else{
                     break;
                 }
