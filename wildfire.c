@@ -28,15 +28,6 @@ int main(int argc, char * argv[]){
     };
 
     
-    fprintf(stdout,"BN: %d\n",cmd_args.BN);
-    fprintf(stdout,"CN: %d\n",cmd_args.CN);
-    fprintf(stdout,"DN: %d\n",cmd_args.DN);
-    fprintf(stdout,"NN: %d\n",cmd_args.NN);
-    fprintf(stdout,"PN: %d\n",cmd_args.PN);
-    fprintf(stdout,"SN: %d\n",cmd_args.SN);
-    
-
-
 
     
     
@@ -48,83 +39,30 @@ int main(int argc, char * argv[]){
     Cell cell_forest[dimensions][dimensions];
 
 
-    printf("density: %f\n",density);
-    printf("percent trees on fire: %f\n",percent_trees_on_fire);
-    printf("neighbor influence: %f\n",neighbor_influence);
-    printf("prob catching fire: %f\n",prob_tree_catching_fire);
-    printf("dimensions: %d\n",dimensions);
-    printf("\n");
     fill_forest(dimensions,density,percent_trees_on_fire,cell_forest,cmd_args_ptr); /// will fill the forest will cells and insert trees
+
     
-    
-    for(int z  = 0; z<5;z++){
-        printf("ROUND: %d\n",Cycle_Count);
-        update_forest(Print_Mode,density,prob_tree_catching_fire,neighbor_influence,dimensions,cell_forest,cmd_args_ptr);
-        //printf("ROUND %d\n",z);
-        // for(int i = 0; i<dimensions; i++){
-        //         for(int j = 0; j<dimensions;j++){
-        //             printf("%s", tree_chars[cell_forest[i][j].current_state]);
-                    
-                        
-        //         }
-        //         printf("\n");
-                
-        //     }
-        // print_forest(density,Print_Mode,dimensions,cell_forest,cmd_args_ptr);
-        // for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
-        //     for(int j = 0; j < dimensions; j++){
-        //         if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
-        //             continue;
-        //         }else{
-        //             spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
-        //         }
-                
-        //     }       
-        // }
-        // for(int i = 0; i<dimensions; i++){
-        //         for(int j = 0; j<dimensions;j++){
-        //             if(cell_forest[i][j].next_state != EMPTY){
-        //             change_cell_state(&cell_forest[i][j]);  
-        //         }
-                        
-        //         }
-                
-        //     }
-    }
-    
-    
-    
-    
-    
-    ///print_forest(density, Print_Mode,dimensions, &cell_forest,cmd_args_ptr);
-    
-    ///update_forest(Print_Mode,density,prob_tree_catching_fire,neighbor_influence,dimensions,cell_forest,cmd_args_ptr);
-    
-    /*
-    for(int i = 0; i<dimensions; i++){
-            for(int j = 0; j<dimensions;j++){
-                printf("%s", tree_chars[cell_forest[i][j].current_state]);
-            }
-            printf("\n");
-        }
-    */
+
+   
     ///usleep(1000000);
         
-    /*
     if(cmd_args.PN > 0){ /// print mode was selected
-        Print_Mode = true;
+        ///printf("round %d" ,Cycle_Count);
         while(Cycle_Count <= cmd_args.PN && Fires_Burning){
+            ///printf("round %d" ,Cycle_Count);
+            
             update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
-
-            Fires_Burning = false; /// setting this to false to break me out of outer while loop
-            break; 
+            ///printf("fires burning %d",Fires_Burning);
             ///usleep(750000);
         }
         
     }else{
+        clear();
         while(Fires_Burning){
-        update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
-        ///usleep(750000);
+
+            update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
+            
+            usleep(750000);
         }
     }
 
@@ -132,7 +70,6 @@ int main(int argc, char * argv[]){
     
 
     cmd_args_ptr = NULL;
-    */
     
 
 } 

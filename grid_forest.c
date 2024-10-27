@@ -412,10 +412,24 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
                 
             }else{
                 ///printf("Cell [%d][%d]: %d\n", i, j, cell_forest[i][j].current_state);
-                clear();
-                    set_cur_pos(i+1,j);
-                    char char_tree = tree_chars[cell_forest[i][j].next_state];
-                    put(char_tree);
+                set_cur_pos(i+1,j);
+
+                switch(cell_forest[i][j].current_state){
+                    case EMPTY:
+                        put(' ');
+                        break;
+                    case TREE:
+                        put('Y');
+                        break;
+                    case BURNING:
+                        put('*');
+                        break;
+                    case BURNED:
+                        put('.');
+                        break;
+                    default:
+                        break;
+                }
                 
             }
         }
@@ -423,10 +437,9 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
     }
         
     
-    fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,(cmd_args_ptr->CN / 100),density,(cmd_args_ptr->BN / 100),(cmd_args_ptr->NN / 100));
-    fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
+   
 
-    if(!Fires_Burning){
+    if(Fires_Burning == false){
         fprintf(stdout,"Fires are out\n");
     }
      
@@ -436,16 +449,27 @@ void print_forest(float density, bool Print_Mode,int dimensions, Cell cell_fores
 
 void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire, float neighbor_influence,  int dimensions,Cell cell_forest[dimensions][dimensions], CMD_LN_ARGS *cmd_args_ptr){
     print_forest(density, Print_Mode,dimensions, cell_forest,cmd_args_ptr);
-
+    int num_fires = 0;
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
-            if(cell_forest[i][j].current_state == EMPTY){///<if this cell is EMPTY don't call the spread function
-                continue;
-            }else{
-                spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); ///<identify the specific cell in the 2d array
+
+            switch(cell_forest[i][j].current_state){
+                case BURNING:
+                    ++num_fires;
+                    break;
+                case TREE:
+                    spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
+                    break;  
+                case EMPTY:
+                default:
+                    break;     
             }
             
+            
         }       
+    }
+    if(num_fires == 0){
+        Fires_Burning = false;
     }
     for(int i = 0; i<dimensions; i++){
         for(int j = 0; j<dimensions;j++){
