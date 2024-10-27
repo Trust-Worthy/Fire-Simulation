@@ -452,17 +452,6 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
     for(int i = 0; i < dimensions; i++){ ///< for the number of cells, call the spread function on every cell
         for(int j = 0; j < dimensions; j++){
             spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
-            // switch(cell_forest[i][j].current_state){
-            //     case BURNING:
-            //         ++num_fires;
-            //         break;
-            //     case TREE:
-            //         spread_function(neighbor_influence,prob_tree_catching_fire,&cell_forest[i][j]); 
-            //         break;  
-            //     case EMPTY:
-            //     default:
-            //         break;     
-            // }
             
             
         }       
@@ -480,9 +469,13 @@ void update_forest(bool Print_Mode, float density,float prob_tree_catching_fire,
         
     }
     
+}
+
+void print_stats(int dimensions,float prob_tree_catching_fire,int density,int percent_trees_on_fire,int neighbor_influence){
     
-    Cycle_Count+=1; //
-    Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end
+    
+    fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,prob_tree_catching_fire,density,percent_trees_on_fire,neighbor_influence);
+    fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
 }
 
 /*

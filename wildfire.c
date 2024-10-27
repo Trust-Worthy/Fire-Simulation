@@ -9,7 +9,7 @@
 
 int Cycle_Count = 0;
 int Cumulative_Changes = 0;
-int  Time_Step_Changes = 0;
+int Time_Step_Changes = 0;
 bool Fires_Burning = true;
 bool Print_Mode = false;
 const char *tree_chars[] = {" ", "Y", "*", "." };
@@ -52,9 +52,9 @@ int main(int argc, char * argv[]){
             ///printf("round %d" ,Cycle_Count);
             
             update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
-            
-            fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,(cmd_args_ptr->CN / 100),density,(cmd_args_ptr->BN / 100),(cmd_args_ptr->NN / 100));
-            fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
+            print_stats(dimensions,prob_tree_catching_fire,density,percent_trees_on_fire,neighbor_influence);
+            Time_Step_Changes = 0;
+            Cycle_Count+=1;
         }
         
     }else{
@@ -62,11 +62,12 @@ int main(int argc, char * argv[]){
         while(Fires_Burning){
 
             update_forest(Print_Mode, density,prob_tree_catching_fire, neighbor_influence, dimensions, cell_forest,cmd_args_ptr);
+            print_stats(dimensions,prob_tree_catching_fire,density,percent_trees_on_fire,neighbor_influence);
             
-            
-            fprintf(stdout,"size %d, pCatch %f, density %d, pBurning %f, pNeighbor %f\n",dimensions,(cmd_args_ptr->CN / 100),density,(cmd_args_ptr->BN / 100),(cmd_args_ptr->NN / 100));
-            fprintf(stdout,"cycle %d, current changes %d, cumulative changes %d.\n",Cycle_Count,Time_Step_Changes,Cumulative_Changes);
             usleep(750000);
+            
+            Time_Step_Changes = 0;// reset time step changes to zero bc the cycle is coming to an end
+            Cycle_Count+=1;
         }
     }
 

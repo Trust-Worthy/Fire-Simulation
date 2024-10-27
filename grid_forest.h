@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include "process_cmdln_args.h"
 
+
 #ifndef FOREST_GRID_H
 #define FOREST_GRID_H
 
@@ -195,8 +196,7 @@ void insert_trees_in_forest(float density,float percent_trees_on_fire, int dimen
 
 int test_grid_forest(int argc, char*argv[]);
 
-
-
+void print_stats(int dimensions,float prob_tree_catching_fire,int density,int percent_trees_on_fire,int neighbor_influence);
 
 
 #endif
