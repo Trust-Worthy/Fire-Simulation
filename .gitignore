@@ -6,8 +6,7 @@
 #########################################################
 # Assignment-specific ignores
 #########################################################
-Makefile
-revisions.txt
+
 a.out
 # ADD OTHER ASSIGNMENT_SPECIFIC FILES HERE, such as load module
 # names, etc.
