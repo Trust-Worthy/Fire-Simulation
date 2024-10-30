@@ -1,37 +1,42 @@
 ============================= ASSIGNMENT REPORT ============================
 Assignment name is: Wildfire
-My name is:         <<<ENTER YOUR FULL NAME>>>
+My name is:         <<<Jonathan Bateman>>>
 
 	[USE PLAIN TEXT]
 	[INSERT ANSWERS AFTER EACH QUESTION AND ADD MORE LINES AS NEEDED.]
 	[MAKE YOUR ANSWERS SHORT AND TO THE POINT. BULLET POINTS ARE GOOD.]
 
 ===== In what cases does the program run correctly?  =================
-
+The program runs in all cases, when the -p flag is used and when it's not.
 
 ===== In what cases does the program fail and how?  ==================
-
+The program doesn't stop when all the fires go out :(.
 
 ===== If applicable, what were the extra credit results?  ============
 ===== If applicable, describe how to run the extra credit.  ==========
 
 
 ===== How much time did I spend on the project?  =====================
-
+I spend easy 45 hours on this project.
 
 ===== What did I learn?  =============================================
-
+I have a super good handle on pointers, header files, global variables,
+testing while I'm writing small functions instead of waiting until I write
+20 functions and everything breaks :((.
 
 ===== What was easy in this assignment?  =============================
-
+Handling the input was pretty easy.
 
 ===== What gave me problems or troubles?  ============================
-
+Trying to update the fires over the different cycles was literal pain.
+Also, trying to calculate the neighbors of a cell was mad tuff.
 
 ===== What would be the most important improvement for the project?  =
-
+Can you make it so that students don't have to do the two different
+forms of printing. I think the -pN format is fine.
 
 ===== What else would I have liked to do for this assignment?  =======
-
+uhhhhhhh I think it would be cool to have to find a specific configuration
+of cells that produce a specific output for extra credit. 
 
 ============================================================================
