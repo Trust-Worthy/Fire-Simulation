@@ -1,0 +1,563 @@
+commit 896a38d8d7921032c9fe83ab84efbebbcebf8a35
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 18:13:30 2024 -0400
+
+    Pretty much done.
+
+commit 5f68707d16eabad1d83e2ff6547350617b49e9cb
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 18:00:53 2024 -0400
+
+    Just need to add the 'fires out message'
+
+commit 0aa3af968cc54488ed492f2378be1524c41ae499
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 17:41:22 2024 -0400
+
+    Fixed the global variable that controls burning.
+
+commit fa00fdc52fe9cf8356a529bbfd7aebcc6d356a5b
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 17:00:44 2024 -0400
+
+    got the put() func working.
+
+commit 6115529d8e4c22bdff45bf8f5de659c3d31d4ff9
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 16:08:28 2024 -0400
+
+    Update function is working.
+
+commit 331a6cbebc2dec0d8385e055313213db97540aab
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 15:35:34 2024 -0400
+
+    Deleting executables.
+
+commit 701277d2a34e24f110bc0b995e4c1790d3a415ef
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 15:23:27 2024 -0400
+
+    Got the burning --> burn working. Thanks @mkowusujr.
+
+commit 9e270fa2e2de7a0d24b24f0d0ad02566ef5b13f6
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sun Oct 27 12:54:54 2024 -0400
+
+    Cleaning up the spread function.
+
+commit 2f7b9189c92391f455e8f4a16ea2cc19ae79dda2
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 19:03:11 2024 -0400
+
+    fixed the burning fjnction
+
+commit 7558735a1c7534876b0b34f4cd3a43cadb8b383e
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 18:57:22 2024 -0400
+
+    Added a case to increase the burn cycle count of a cell.
+
+commit f01d99613040887d6d3471ca015c8c13f4939230
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 18:44:31 2024 -0400
+
+    Fixing the Burning function so that trees actually burn.
+
+commit 9220b83819402a9bea9ecc119ffa27930bedb48b
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 18:17:08 2024 -0400
+
+    There were multiple issues with different variables that I didn't change since combining all the files.
+
+commit a4067678ebfe954e1d7bbacd96694062cc99f99a
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 15:27:40 2024 -0400
+
+    Working on fixing the print grid function.
+
+commit 10369a03201f01e85e404cd9d0ba31e4ecfebc54
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 14:30:08 2024 -0400
+
+    Fixed the no argc condition.
+
+commit ed22aa93cd245cc2b052afb965b643facaa09dfc
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 13:58:53 2024 -0400
+
+    Changed the order that the mode
+
+commit 3eb304d617ddab67031c3e531e7bbb0f94f96cf6
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 13:07:02 2024 -0400
+
+    The wildfire executable is compiling now.
+
+commit 7752d8e8505794d26e340cda9fdb29f3385f2560
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 13:03:16 2024 -0400
+
+    Created a new header file for global variables.
+
+commit 966edae7790545fd505462e5fc8df42e031f1c1e
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 12:06:33 2024 -0400
+
+    I am going to create another header file.
+
+commit f8e60b4f88cd5e73c1536a9cb9776e67656be626
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 11:29:51 2024 -0400
+
+    Accidentally named the function wrong in wildfire.c
+
+commit 1cbfc744ce2f301d564633790b786dc21ac30f0d
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 03:19:07 2024 -0400
+
+    Made the parameters more consistent across functions.
+
+commit 4737d14857ba6e589b8c7914ec697d81752f478c
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 02:22:43 2024 -0400
+
+    Fixed a little parameter error in grid_Forest.c
+
+commit 25f2f9b81b667621632929fcf2b7b4447b2a487a
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 02:21:23 2024 -0400
+
+    Added two different cases for the two different print modes. About to add sleep method.
+
+commit ea3f033c4a46c28584453b074d51a236c3fdb731
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 01:42:08 2024 -0400
+
+    Almost done working on main in wildfire.c.
+
+commit b86c1636c3405ca6baf38daaa7975ab6c6ae58da
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 00:38:31 2024 -0400
+
+    Working on tying all the files together in the wildfire.c file.
+
+commit 66074b1c01c71a5eca0ad3e7b98930642bf4ee53
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Sat Oct 26 00:22:16 2024 -0400
+
+    Finished creating the update_forest function. The update func will call the spread function on every cell. Once those cells have been 'spread' the print_forest func will be called to display the changes.
+
+commit 5f4b78c774c7b42f670e403e246becb4c208d2d4
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 23:05:27 2024 -0400
+
+    For some reason I had to adjust the code on 279 even though it was working before.
+
+commit dadccc66da496280942366710e3277bc5630c7cf
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 22:53:25 2024 -0400
+
+    Added revisions.txt file.
+
+commit 17d2479d6a28b392dc303c453ad03a01a0f5d2b0
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 20:11:23 2024 -0400
+
+    Created a helper function to insert trees into the forest directly. This will come in handy later.
+
+commit 7fa6e450eb1fa0f244ff8a6749ea6a96709c9eef
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 19:48:04 2024 -0400
+
+    Changed setting to the json file.
+
+commit c2cca1d2b1ef1c4bd1ca527745f602821df6c4b9
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 18:46:53 2024 -0400
+
+    updating top branch
+
+commit edf6bd3a4b6d3c8f88bc4af92b8073ad718cb97a
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 18:36:51 2024 -0400
+
+    The print grid function is workinggit add ..
+
+commit 78fd66b4bcc0b37bc167b2a414bcd2056bbcf5a5
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 17:57:12 2024 -0400
+
+    Found a solution. Changed the definition of my cell struct. No longer a pointer to a neighbors struct but rather just the struct itself.
+
+commit 2095afc7192385f2e11ccc2426729538b50647cf
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 11:54:21 2024 -0400
+
+    Added case to protect against negative values
+
+commit d4d0dc8f19f38e103d458f363535f4bfcb91bfa4
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 10:20:01 2024 -0400
+
+    Fixing simple function mistkes.
+
+commit e45090e6a4da3d03e5a18c65f563b1aa69a7d76a
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 05:27:29 2024 -0400
+
+    using gdb rn to look over my code because it won't compile
+
+commit 9186452f61e8dc4961beb5dc25307b13ddab4513
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 04:19:58 2024 -0400
+
+    Removed some extra parameters that were'nt needed.
+
+commit d526fa1b60cf0d24a13aa24ed3d0a82239659db2
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 02:39:57 2024 -0400
+
+    Finished implementing the logic for cell neighbors. Now it's time to test.
+
+commit a5c4bce7fb3b17205e8db4144325f0257ccec834
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Fri Oct 25 01:29:54 2024 -0400
+
+    Almost done adding the logic for calculating the neighbors.
+
+commit d4bb670f64e3e22699d6b7a8b768d419a29e091f
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 23:32:00 2024 -0400
+
+    implementing helper functions to identify cells that don't have neighbors.
+
+commit d55257e77980b1100a8012c86c39da39aa33551a
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 19:06:30 2024 -0400
+
+    Added and implemented helper functions to get coordinates to avoid mistakes. Learned how to use the inline keyword when I want to replace a function with the code directly for quick execution and efficiency at compile time.
+
+commit 8197cdf057949e07089eda4213ff7c591a0791a6
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 18:42:48 2024 -0400
+
+    Line 50 of grid_forest.c is a game changer.I get it. Dereference the cell to point a pointer to the address of that cell.
+
+commit f848f44b7f2f47a57908e177e0caaface3c9c024
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 17:10:29 2024 -0400
+
+    Removing vs code settings by adding to gitignore.
+
+commit f05a26812c7610d0863cf306b8adbf9c94fbf538
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 17:08:28 2024 -0400
+
+    Building add_cell_neighbors. Writing logic to exclude neighbors from cells that are on the edge of the forest.
+
+commit 4141db8d306ca8f0d6dd53f5f1b92257f26f4061
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Thu Oct 24 16:16:34 2024 -0400
+
+    Pushing slight changes in comments from Salt Lake City
+
+commit ec5f5d91188c10db7685cabd05ab5473be622c6e
+Author: Trust-Worthy <103729755+Trust-Worthy@users.noreply.github.com>
+Date:   Wed Oct 23 11:52:14 2024 -0400
+
+    Update .gitignore so that my executables aren't committed
+
+commit 3631cd2ba84f80efac70b093005ec865448304c9
+Author: Trust-Worthy <jondeveloper0@gmail.com>
+Date:   Tue Oct 22 11:27:33 2024 -0400
+
+    updating local repo with master
+
+commit ccd25b9b86a516897a74afd19c8a4a8690073419
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 08:01:45 2024 -0400
+
+    cleaning up tree
+
+commit ca244746acfd324d2787817b563190adf7f95371
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 08:00:54 2024 -0400
+
+    last commit for the morning.
+
+commit 1f7c6b74ddc77c6349f0b7181b4c54e32cccbf3c
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 07:55:45 2024 -0400
+
+    Comment on line 49 is extremely important. As is the comment on line 24-25. They instruct me on how to find the neighbors of each Cell
+
+commit 4807816c053ea5385d91e77a2bd2ebffad2b6ce4
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 07:47:56 2024 -0400
+
+    Fixed all places in the code where I was using -> instead of dot notation because I was accessing the struct directly, not a pointer to a struct
+
+commit 4429f305916ff780b892c0af79ef0be35979d7c7
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 07:45:46 2024 -0400
+
+    Made some changes to the way I access the fields of thst Cell structs in the array on ines 44 -47
+
+commit 2846bcae4df4c6afbc1ac00389a8c02f275b6d5b
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 07:43:48 2024 -0400
+
+    Made some changes to the code to allow for use of VLA's
+
+commit 85347bf7a480575ec0b2af47cd25d2907b225252
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 07:04:30 2024 -0400
+
+    I cracked the code. I will make the grid a 2d array of Cell Structs! Working on implementing the Cell Struct right now. I am created a static array  whose size will be based the user input. Then I'm filling this array with Cell Structs.
+
+commit 707a6efb5bc53482b9ffa01c9b886a1aaf184dbd
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 05:46:16 2024 -0400
+
+    my forest is properly printing !
+
+commit bcea917313751eb09509b594322ac0fed5a3d47a
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 05:32:25 2024 -0400
+
+    Removed all error from grid_forest.c. Now I will test.
+
+commit b474acfb8ba0f1fedf31769dc6c01936bd8cdf5a
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 05:17:56 2024 -0400
+
+    updating branch.
+
+commit ce853c9b214827543d18e4889780170a661dd641
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 05:11:46 2024 -0400
+
+    Ready to commence testing for the forest output.
+
+commit dbee883ffe0225d117022b5fbe707a2a63cc4990
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 04:41:44 2024 -0400
+
+    I changed the type of forest from a char to a CellState enum.
+
+commit 7adfac6224d5e34063ce9d9b784a5605df15852a
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 04:28:24 2024 -0400
+
+    Decided to go with a different algo than yates because I found one more efficient. I'm just generating random x,y pairs and placing the burning and live trees.
+
+commit 9ab2ba4757c788151b8accbfbbdae8daeaa2b1d8
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 03:09:40 2024 -0400
+
+     I was successfully able to fill a two-d array with desired values.
+
+commit 45a90fc5963c68f41c594826a77417ee759ba7ac
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 02:40:04 2024 -0400
+
+    About to test my pass by reference implementation of the forest matrix
+
+commit 9fbd1458e8aaa12734321834ac93d33a81008bf9
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 02:23:36 2024 -0400
+
+    Created the c file for grid_forest. I'm working on testing my implementation of the fill_forest function.
+
+commit 653dd43a6689a12647871fbaac61bfa79c2cf258
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 01:16:15 2024 -0400
+
+    got ride of the create_forest function because I will declare that in the main function once i get the dimensions from the user from the cmd line arguments.
+
+commit e476d2ca0732e30914a12377248cc7d7ca6b17f1
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 01:04:21 2024 -0400
+
+    changed the parameter on line 62 to a pointer to an array of characters.
+
+commit 5889ed58b5a5c475134cc8d0e1d3f3073e7a9f72
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 00:25:21 2024 -0400
+
+    Defining the eightway struct and creating detailed comments.
+
+commit 465bc5a91f8bb953d299effcbcfb0e1014571181
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 21 00:09:52 2024 -0400
+
+    Creating structs to represent the cell and the eight way connectivity
+
+commit a8c33c5e57c4d5991f3fc4e97e86eae1dacd1a04
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 23:16:39 2024 -0400
+
+    Added the params for function in the header file for the grid forest.
+
+commit 4c1ad809ed9be5d7dadfc975e0c9d7718f65f7d8
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 23:11:39 2024 -0400
+
+    Removed some trailing whitespace.
+
+commit 80a29635e49454b4580669434cb709c472feac62
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 23:10:51 2024 -0400
+
+    Defining functions for the forest grid.
+
+commit 7aba5bcf5c5b67ade2d2dc625601dd10251bc4e7
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:54:21 2024 -0400
+
+    Officially finished this part of the project.
+
+commit 9abec717c28b3da3c09e877e5652a2132e1ddf53
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:42:59 2024 -0400
+
+    Changed the || condition to && in the switch statement.
+
+commit 474f1a29808f37836c6c3a753dac00dff53d93d3
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:37:18 2024 -0400
+
+    removed exit success line so program won't end prematurely.
+
+commit 0fcc8f43b0bda59e9dd399d985f9c5827abc90a1
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:35:04 2024 -0400
+
+    Adjusted gitignore so it doesn't track executables.
+
+commit 3f1f22f76ebe072da8b23d5c9de1f76d56a5e987
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:30:53 2024 -0400
+
+    called print_struct from main
+
+commit 7f649dab58692483235f8e8739b5cd1ac0b7f261
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:26:42 2024 -0400
+
+    defined the print_header function. I don't know how it got erased.
+
+commit fe59ea739fde3811c05adee25e24a8a1bd59c092
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:20:23 2024 -0400
+
+    fixed syntax error on line 133.
+
+commit 326f3f6d1c75a1fd03fe2262339777d743f88215
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:19:33 2024 -0400
+
+    renamed the function to main
+
+commit b8eac78d5458ef3efd2951ea2db6a8d984670b06
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:16:18 2024 -0400
+
+    Fixed some syntax errors. I forgot to add stderr to fprintf
+
+commit 70e9181cf45f6f8b724e2ac025c17c094f83ab7a
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 22:03:08 2024 -0400
+
+    finished implementing the print struct
+
+commit 09a51b6e9772bc2c19b300820b9cc70d75654363
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 21:53:38 2024 -0400
+
+    Finished the last condition for the switch statement
+
+commit 953443ca1f39081b431c6af354f6c3648e7a78ea
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 21:49:23 2024 -0400
+
+    resolved conflicts.
+
+commit dc0b52f6545e238c54aec82a98f5a7682285e2f1
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 21:45:58 2024 -0400
+
+    quick commit
+
+commit 5be3b60688f4ed804e6c0a2ee1b5999363be775b
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 21:00:38 2024 -0400
+
+    fixed error on line 28 of process header file.
+
+commit f4e066ffcb1dca488ce04f600faada12f7e821d8
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 20:35:28 2024 -0400
+
+    Finished implementing the helper function to print out the struct. Testing time now.
+
+commit ebb2427f6dde299ff54d67a471f57ea4a7cf4f0c
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 20:27:45 2024 -0400
+
+    Adding helper function to print out the struct so I can see if the args are being processed properly.
+
+commit 30f141292e4de28d2fa4187d60d3b542cba0a19f
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 20:12:25 2024 -0400
+
+    Re-created the struct because I realized I can't change the values of a enum.
+
+commit 43b2f471e5344e4439a8173cf65daabfe800421b
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 19:56:55 2024 -0400
+
+    Nevermind. It's too much work to create a whole different function.
+
+commit af8994f8d2189ffdf87d8fac18c5a5c4e661c7ea
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 19:46:49 2024 -0400
+
+    Decided to change the cmd ln arg struct to an enum because everything is taken in as an integer. Additionally, I started defining a new function in process_cmdln_args.h to make the switch statement more readable in the c file
+
+commit d05a2b62572772068dba33bf319e6ae20e750b33
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 18:35:04 2024 -0400
+
+    Added error message for -pN option.
+
+commit 676474deb9490eed5c8be63ea3d7e55effe0561c
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 18:31:21 2024 -0400
+
+    Created struct to hold cmd line args.
+
+commit 788b755619aeb7ea6a6b593f052ab8b966e52aad
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Sun Oct 20 17:18:52 2024 -0400
+
+    Working on processing the cmd line arguments
+
+commit e0453c671f48f094b7dfa6b29f14cd1ca1cc9cad
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 7 11:40:52 2024 -0400
+
+    Working on printing correct text to stderr based on cmd line input
+
+commit 7122f407dd62835df753e273c4d0be97e8654588
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Mon Oct 7 10:57:26 2024 -0400
+
+    Successfully created header file with function that prints the Wildfire header
+
+commit 297c47395474170e4fe50a4d613876d1a84d8e86
+Author: Jonathan M Bateman <jmb7342@rit.edu>
+Date:   Fri Oct 4 15:45:02 2024 -0400
+
+    Initializing git repository with starter files

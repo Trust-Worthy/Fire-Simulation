@@ -270,7 +270,7 @@ void spread_function(float neighbor_influence, float prob_tree_catching_fire, Ce
         
         case EMPTY:
             break;
-        case TREE:
+        case TREE: ;
             int burning_neighbors =  calculate_burning_neighbors(cell);
             float proportion_burning_neighbor_trees = ((float)burning_neighbors/(float)cell->total_neighbors);
             if(proportion_burning_neighbor_trees >= neighbor_influence){ // if prop of burning trees is greater than the value specified
